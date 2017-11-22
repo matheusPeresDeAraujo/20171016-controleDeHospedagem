@@ -55,11 +55,9 @@ public class AlterarClienteAction implements Action{
             }
         }
         
-        String action = "BuscarCliente";
-        Action actionObject = null;
-        actionObject = ActionFactory.create(action);
+        
+        Action actionObject = ActionFactory.create("BuscarCliente");
         actionObject.execute(request, response);
         
-    }
-    
+    }  
 }

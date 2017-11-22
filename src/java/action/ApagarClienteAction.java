@@ -6,6 +6,7 @@
 package action;
 
 import controller.Action;
+import controller.ActionFactory;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -36,14 +37,9 @@ public class ApagarClienteAction implements Action{
         }
         
         
-        try {
-            request.setAttribute("clientes", ClienteDao.obterClientes());
-            RequestDispatcher view =
-                        request.getRequestDispatcher("CRUDcliente/Cliente.jsp");
-            view.forward(request, response);
-        } catch (ServletException | SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(ApagarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Action actionObject = ActionFactory.create("BuscarCliente");
+        actionObject.execute(request, response);
+        
     }
     
 }
