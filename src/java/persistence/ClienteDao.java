@@ -51,9 +51,7 @@ public class ClienteDao {
                             celular()       + "," +
                             email()         + ")" +
                             "values (?,?,?,?,?,?)");
-            
             parseAtributos(stmt, cliente);
-            stmt.execute();
             
         }catch(SQLException e){
             throw e;
@@ -160,8 +158,6 @@ public class ClienteDao {
                     email()         + " = ? where " +
                     codigo()        + " = ?");
             parseAtributos(stmt, cliente);
-            stmt.setInt     (7, cliente.getCodigo()         );
-            stmt.execute();
         
         }catch(SQLException e){
             throw e;
@@ -208,5 +204,9 @@ public class ClienteDao {
             stmt.setString  (4, cliente.getTelefone()       );
             stmt.setString  (5, cliente.getCelular()        );
             stmt.setString  (6, cliente.getEmail()          );
+        if(cliente.getCodigo() != 0){
+            stmt.setInt     (7, cliente.getCodigo()         );
+        }
+            stmt.execute();
     }
 }

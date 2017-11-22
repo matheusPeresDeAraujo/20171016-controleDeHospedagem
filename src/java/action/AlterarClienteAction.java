@@ -49,7 +49,8 @@ public class AlterarClienteAction implements Action{
                         request.getParameter("textCelular"), 
                         request.getParameter("textEmail"));
                 
-                ClienteDao.getInstance().update(cliente);   
+                ClienteDao.getInstance().update(cliente);
+                
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(AlterarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -40,7 +40,7 @@ public class GravarClienteAction implements Action{
         } else{
             try {
                 Cliente cliente = new Cliente(
-                    request.getParameter("0"),
+                    "0",
                     request.getParameter("textIdade"), 
                     request.getParameter("textNome"), 
                     request.getParameter("textIdentificacao"), 
