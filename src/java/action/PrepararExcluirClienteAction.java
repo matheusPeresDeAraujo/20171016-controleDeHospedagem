@@ -31,9 +31,7 @@ public class PrepararExcluirClienteAction implements Action{
             request.setAttribute("cliente", cliente);
             RequestDispatcher view = request.getRequestDispatcher("CRUDcliente/ClienteDelete.jsp");
             view.forward(request, response);
-        } catch (ServletException ex) {
-        } catch (IOException ex) {
-        } catch (ClassNotFoundException ex) {
+        } catch (ServletException | IOException | ClassNotFoundException ex) {
         } catch (SQLException ex) {
             Logger.getLogger(PrepararExcluirClienteAction.class.getName()).log(Level.SEVERE, null, ex);
         }

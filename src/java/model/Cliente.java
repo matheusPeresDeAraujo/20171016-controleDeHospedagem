@@ -48,7 +48,17 @@ public class Cliente implements Observer{
         this.celular = celular;
         this.email = email;
     }
-
+    
+    public Cliente(String codigo, String idade, String nome, String identificacao, String telefone, String celular, String email){
+        this.codigo = Integer.parseInt(codigo);
+        this.idade = Integer.parseInt(idade);
+        this.nome = nome;
+        this.identificacao = identificacao;
+        this.telefone = telefone;
+        this.celular = celular;
+        this.email = email;
+    }
+    
     public int getCodigo() {
         return codigo;
     }

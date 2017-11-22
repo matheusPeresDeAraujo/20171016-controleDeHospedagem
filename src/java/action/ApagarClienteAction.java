@@ -14,7 +14,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Cliente;
 import persistence.ClienteDao;
 
 /**
@@ -25,24 +24,25 @@ public class ApagarClienteAction implements Action{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
         int codigo = Integer.parseInt(request.getParameter("textCodigo"));
         
-        if(codigo == 0){
-            response.sendRedirect("index.html");
-        } else{
+        if(codigo != 0){
             try{
                 ClienteDao.getInstance().drop(codigo);
-                request.setAttribute("clientes", Cliente.obterClientes());
-                RequestDispatcher view =
-                        request.getRequestDispatcher("CRUDcliente/Cliente.jsp");
-                view.forward(request, response);
-            }catch(ClassNotFoundException ex){
-                Logger.getLogger(ApagarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ServletException ex) {
-                Logger.getLogger(ApagarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
+            }catch(ClassNotFoundException | SQLException ex){
                 Logger.getLogger(ApagarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+        
+        
+        try {
+            request.setAttribute("clientes", ClienteDao.obterClientes());
+            RequestDispatcher view =
+                        request.getRequestDispatcher("CRUDcliente/Cliente.jsp");
+            view.forward(request, response);
+        } catch (ServletException | SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(ApagarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

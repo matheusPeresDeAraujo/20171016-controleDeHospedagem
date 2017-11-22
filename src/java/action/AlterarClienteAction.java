@@ -6,6 +6,7 @@
 package action;
 
 import controller.Action;
+import controller.ActionFactory;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -15,7 +16,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Cliente;
-import model.Quarto;
 import persistence.ClienteDao;
 
 /**
@@ -27,46 +27,39 @@ public class AlterarClienteAction implements Action{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         
-        if(request.getParameter("textCodigo").equals("") || request.getParameter("textIdade").equals("") || request.getParameter("textNome").equals("") || request.getParameter("textIdentificacao").equals("") || request.getParameter("textTelefone").equals("null") || request.getParameter("textCelular").equals("null") || request.getParameter("textEmail").equals("null")){
-            try {
-                String resposta = "Alteração recusada";
-                
-                request.setAttribute("resposta", resposta);
-                request.setAttribute("clientes", Cliente.obterClientes());
-                RequestDispatcher view = request.getRequestDispatcher("CRUDcliente/Cliente.jsp");
-                view.forward(request, response);
-            } catch (SQLException ex) {
-                Logger.getLogger(AlterarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(AlterarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ServletException ex) {
-                Logger.getLogger(AlterarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else{
+        if(     request.getParameter("textCodigo").equals("")           || 
+                request.getParameter("textIdade").equals("")            || 
+                request.getParameter("textNome").equals("")             || 
+                request.getParameter("textIdentificacao").equals("")    || 
+                request.getParameter("textTelefone").equals("null")     || 
+                request.getParameter("textCelular").equals("null")      || 
+                request.getParameter("textEmail").equals("null")){
             
-            int codigo = Integer.parseInt(request.getParameter("textCodigo"));
-            int idade = Integer.parseInt(request.getParameter("textIdade"));
-            String nome = request.getParameter("textNome");
-            String identificacao = request.getParameter("textIdentificacao");
-            String telefone = request.getParameter("textTelefone");
-            String celular = request.getParameter("textCelular");
-            String email = request.getParameter("textEmail");
-
+            String resposta = "Alteração recusada";
+            request.setAttribute("resposta", resposta);
+            
+        } else{
             try{
-                Cliente cliente = new Cliente(codigo, idade, nome, identificacao, telefone, celular, email);
-                ClienteDao.getInstance().update(cliente);
-                request.setAttribute("clientes", Cliente.obterClientes());
-                RequestDispatcher view = 
-                        request.getRequestDispatcher("CRUDcliente/Cliente.jsp");
-                view.forward(request, response);
-            } catch (SQLException ex) {
-                Logger.getLogger(AlterarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(AlterarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ServletException ex) {
+                Cliente cliente = new Cliente(
+                        request.getParameter("textCodigo"),
+                        request.getParameter("textIdade"), 
+                        request.getParameter("textNome"), 
+                        request.getParameter("textIdentificacao"), 
+                        request.getParameter("textTelefone"), 
+                        request.getParameter("textCelular"), 
+                        request.getParameter("textEmail"));
+                
+                ClienteDao.getInstance().update(cliente);   
+            } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(AlterarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        String action = "BuscarCliente";
+        Action actionObject = null;
+        actionObject = ActionFactory.create(action);
+        actionObject.execute(request, response);
+        
     }
     
 }
