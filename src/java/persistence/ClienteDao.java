@@ -26,7 +26,7 @@ public class ClienteDao {
     public static ClienteDao getInstance(){return instance;}
     
     
-    private static String nameClass(){return "CLIENTE";}
+    private static String nameTable(){return "CLIENTE";}
     private static String codigo(){return "CODIGO";}
     private static String nome(){return "NOME";}
     private static String idade(){return "IDADE";}
@@ -43,7 +43,7 @@ public class ClienteDao {
         
         try{
             conn = DatabaseLocator.getInstance().getConnection();
-            stmt = conn.prepareStatement("insert into " + nameClass() + " (" + 
+            stmt = conn.prepareStatement("insert into " + nameTable() + " (" + 
                             nome()          + "," + 
                             idade()         + "," +
                             identificacao() + "," +
@@ -70,7 +70,7 @@ public class ClienteDao {
         
         try{
             conn = DatabaseLocator.getInstance().getConnection();
-            stmt = conn.prepareStatement("delete from " + nameClass() + " where " + codigo() + " = ?");
+            stmt = conn.prepareStatement("delete from " + nameTable() + " where " + codigo() + " = ?");
             stmt.setInt(1, codigo);
             stmt.execute();
         
@@ -89,7 +89,7 @@ public class ClienteDao {
         try{
             conn = DatabaseLocator.getInstance().getConnection();
             st = conn.createStatement();
-            ResultSet rs = st.executeQuery("select * from " + nameClass());
+            ResultSet rs = st.executeQuery("select * from " + nameTable());
             busca = new ArrayList<>();
             while (rs.next()){
                
@@ -119,7 +119,7 @@ public class ClienteDao {
         Cliente cliente = null;
         try{
             conn = DatabaseLocator.getInstance().getConnection();
-            stmt = conn.prepareStatement("select * from " + nameClass() + " where " + codigo() + " = ?");
+            stmt = conn.prepareStatement("select * from " + nameTable() + " where " + codigo() + " = ?");
             stmt.setInt(1, codigo);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()){
@@ -150,7 +150,7 @@ public class ClienteDao {
         
         try{
             conn = DatabaseLocator.getInstance().getConnection();
-            stmt = conn.prepareStatement("UPDATE " + nameClass() + " SET " + 
+            stmt = conn.prepareStatement("UPDATE " + nameTable() + " SET " + 
                     nome()          + " = ?, " + 
                     idade()         + " = ?, " +
                     identificacao() + " = ?, " +
