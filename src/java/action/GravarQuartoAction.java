@@ -59,12 +59,12 @@ public class GravarQuartoAction implements Action{
                 } 
                 try{
                     //Adicionando no banco
-                    quarto = QuartoDao.getInstance().save(quarto);
+                    QuartoDao.getInstance().save(quarto);
                     
                     //Adicionando na sessão
                     HttpSession session = request.getSession(true);
-                    List<Quarto> quartos = (List<Quarto>) session.getAttribute("quartos");
-                    quartos.add(quarto);
+                    List<Quarto> quartos = QuartoDao.getInstance().obterQuartos();;
+                   
                     session.setAttribute("quartos", quartos);
                     
                     RequestDispatcher view = request.getRequestDispatcher("/painel.jsp");

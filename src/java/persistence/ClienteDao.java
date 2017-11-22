@@ -26,14 +26,14 @@ public class ClienteDao {
     public static ClienteDao getInstance(){return instance;}
     
     
-    private static String nameTable(){return "CLIENTE";}
-    private static String codigo(){return "CODIGO";}
-    private static String nome(){return "NOME";}
-    private static String idade(){return "IDADE";}
-    private static String identificacao(){return "IDENTIFICACAO";}
-    private static String telefone(){return "TELEFONE";}
-    private static String celular(){return "CELULAR";}
-    private static String email(){return "EMAIL";}
+    private static String nameTable()       {return "CLIENTE";      }
+    private static String codigo()          {return "CODIGO";       }
+    private static String nome()            {return "NOME";         }
+    private static String idade()           {return "IDADE";        }
+    private static String identificacao()   {return "IDENTIFICACAO";}
+    private static String telefone()        {return "TELEFONE";     }
+    private static String celular()         {return "CELULAR";      }
+    private static String email()           {return "EMAIL";        }
     
     
     public void save(Cliente cliente) throws SQLException, ClassNotFoundException{

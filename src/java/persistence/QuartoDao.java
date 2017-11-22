@@ -234,10 +234,20 @@ public class QuartoDao {
             closeResources(conn, st);
         }
     }
+    
     public static void closeResources (Connection conn, Statement st) throws SQLException{
         try{
             if(st!=null) st.close();
             if(conn!=null) st.close();
+        }catch(SQLException e){
+            throw e;
+        }
+    }
+    
+    public static void closeResources (Connection conn, PreparedStatement stmt) throws SQLException{
+        try{
+            if(stmt!=null) stmt.close();
+            if(conn!=null) conn.close();
         }catch(SQLException e){
             throw e;
         }
