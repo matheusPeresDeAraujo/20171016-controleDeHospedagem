@@ -6,6 +6,7 @@
 package action;
 
 import controller.Action;
+import controller.ActionFactory;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -34,20 +35,10 @@ public class AlterarSalaAction implements Action{
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         
         if(request.getParameter("textCodigo").equals("") || request.getParameter("textNumero").equals("") || request.getParameter("textNome").equals("") || request.getParameter("textPreco").equals("")){
-            try {
-                String resposta = "Alteração recusada";
+           
+            String resposta = "Alteração recusada";
+            request.setAttribute("resposta", resposta);
                 
-                request.setAttribute("resposta", resposta);
-                request.setAttribute("salas", Sala.obterSalas());
-                RequestDispatcher view = request.getRequestDispatcher("CRUDsala/Sala.jsp");
-                view.forward(request, response);
-            } catch (SQLException ex) {
-                Logger.getLogger(AlterarSalaAction.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(AlterarSalaAction.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ServletException ex) {
-                Logger.getLogger(AlterarSalaAction.class.getName()).log(Level.SEVERE, null, ex);
-            }
         } else{
             int codigo = Integer.parseInt(request.getParameter("textCodigo"));
             int numero = Integer.parseInt(request.getParameter("textNumero"));
@@ -71,18 +62,13 @@ public class AlterarSalaAction implements Action{
                     sala = new SalaAuditorio(codigo, numero, preco);
                 }
                 SalaDao.getInstance().update(sala);
-                request.setAttribute("salas", Sala.obterSalas());
-                    RequestDispatcher view = 
-                            request.getRequestDispatcher("CRUDsala/Sala.jsp");
-                    view.forward(request, response);
-            } catch (SQLException ex) {
-                Logger.getLogger(AlterarSalaAction.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(AlterarSalaAction.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ServletException ex) {
+            } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(AlterarSalaAction.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        Action actionObject = ActionFactory.create("BuscarSala");
+        actionObject.execute(request, response);
+        
     }
-    
 }

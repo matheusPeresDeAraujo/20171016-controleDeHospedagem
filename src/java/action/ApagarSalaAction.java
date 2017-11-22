@@ -6,6 +6,7 @@
 package action;
 
 import controller.Action;
+import controller.ActionFactory;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -25,28 +26,19 @@ public class ApagarSalaAction implements Action {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
         int codigo = Integer.parseInt(request.getParameter("textCodigo"));
 
-        if (codigo == 0) {
-            response.sendRedirect("index.html");
-        } else {
+        if (codigo != 0) {
             try {
-                try {
-                    SalaDao.getInstance().drop(codigo);
-                    request.setAttribute("salas", Sala.obterSalas());
-                    RequestDispatcher view
-                            = request.getRequestDispatcher("CRUDsala/Sala.jsp");
-                    view.forward(request, response);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(ApagarSalaAction.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ServletException ex) {
-                    Logger.getLogger(ApagarSalaAction.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } catch (SQLException ex) {
-                response.sendRedirect("PaginaErro.jsp");
-                ex.printStackTrace();
-            }
+                SalaDao.getInstance().drop(codigo);
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(ApagarSalaAction.class.getName()).log(Level.SEVERE, null, ex);
+            }          
         }
+        
+        Action actionObject = ActionFactory.create("BuscarSala");
+        actionObject.execute(request, response);
 
     }
 }

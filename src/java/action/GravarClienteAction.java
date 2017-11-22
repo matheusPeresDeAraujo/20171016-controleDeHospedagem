@@ -6,6 +6,7 @@
 package action;
 
 import controller.Action;
+import controller.ActionFactory;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -25,46 +26,37 @@ public class GravarClienteAction implements Action{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if(request.getParameter("textIdade").equals("") || request.getParameter("textNome").equals("") || request.getParameter("textIdentificacao").equals("") || request.getParameter("textTelefone").equals("null") || request.getParameter("textCelular").equals("null") || request.getParameter("textEmail").equals("null")){
-            try {
+        
+        if(     request.getParameter("textIdade").equals("")            || 
+                request.getParameter("textNome").equals("")             || 
+                request.getParameter("textIdentificacao").equals("")    || 
+                request.getParameter("textTelefone").equals("null")     || 
+                request.getParameter("textCelular").equals("null")      || 
+                request.getParameter("textEmail").equals("null")){
+            
                 String resposta = "Alteração recusada";
-                
                 request.setAttribute("resposta", resposta);
-                request.setAttribute("clientes", Cliente.obterClientes());
-                RequestDispatcher view = request.getRequestDispatcher("CRUDcliente/Cliente.jsp");
-                view.forward(request, response);
-            } catch (SQLException ex) {
-                Logger.getLogger(AlterarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(AlterarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ServletException ex) {
-                Logger.getLogger(AlterarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                
         } else{
-            int idade = Integer.parseInt(request.getParameter("textIdade"));
-            String nome = request.getParameter("textNome");
-            String identificacao = request.getParameter("textIdentificacao");
-            String telefone = request.getParameter("textTelefone");
-            String celular = request.getParameter("textCelular");
-            String email = request.getParameter("textEmail");
-            try{
-                Cliente cliente = new Cliente(idade, nome, identificacao, telefone, celular, email);
-                try{
-                    ClienteDao.getInstance().save(cliente);
-                    request.setAttribute("clientes", Cliente.obterClientes());
-                    RequestDispatcher view = 
-                            request.getRequestDispatcher("CRUDcliente/Cliente.jsp");
-                    view.forward(request, response);
-                }catch(ClassNotFoundException ex){
-                    Logger.getLogger(GravarQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ServletException ex) {
-                    Logger.getLogger(GravarQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
-                }  
-            }catch(SQLException ex){
-                response.sendRedirect("PaginaErro.jsp");
-                ex.printStackTrace();
-            }
+            try {
+                Cliente cliente = new Cliente(
+                    request.getParameter("0"),
+                    request.getParameter("textIdade"), 
+                    request.getParameter("textNome"), 
+                    request.getParameter("textIdentificacao"), 
+                    request.getParameter("textTelefone"), 
+                    request.getParameter("textCelular"), 
+                    request.getParameter("textEmail"));
+
+                ClienteDao.getInstance().save(cliente);
+                
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(GravarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
+            }    
         }
-    }
-    
+        
+        Action actionObject = ActionFactory.create("BuscarCliente");
+        actionObject.execute(request, response);
+        
+    } 
 }
