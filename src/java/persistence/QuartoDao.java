@@ -31,6 +31,7 @@ public class QuartoDao {
     
     
     private static String nameTable()   {return "QUARTO";       }
+    private static String codigo()      {return "CODIGO";       }
     private static String numero()      {return "NUMERO";       }
     private static String tipo()        {return "TIPO";         }
     private static String preco()       {return "PRECO";        }
@@ -76,7 +77,6 @@ public class QuartoDao {
             stmt.setBoolean (10, quarto.getComputador()  );
             stmt.setString  (11, quarto.getQuartoEstado());
             stmt.execute();
- 
         
         }catch(SQLException e){
             throw e;
@@ -88,17 +88,19 @@ public class QuartoDao {
     public void drop(int codigo) throws SQLException, ClassNotFoundException{
         
         Connection conn = null;
-        Statement st = null;
+        PreparedStatement stmt = null;
         
         try{
             conn = DatabaseLocator.getInstance().getConnection();
-            st = conn.createStatement();
-            st.execute("delete from QUARTO where codigo = " + codigo);
+            stmt = conn.prepareStatement("DELETE FROM " + nameTable() + " WHERE " + 
+                                codigo() + " = ?");
+            stmt.setInt(1, codigo);
+            stmt.execute();
         
         }catch(SQLException e){
             throw e;
         }finally{
-            closeResources(conn, st);
+            closeResources(conn, stmt);
         }
     }
     

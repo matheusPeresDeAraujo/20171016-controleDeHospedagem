@@ -70,7 +70,8 @@ public class ClienteDao {
         
         try{
             conn = DatabaseLocator.getInstance().getConnection();
-            stmt = conn.prepareStatement("delete from " + nameTable() + " where " + codigo() + " = ?");
+            stmt = conn.prepareStatement("delete from " + nameTable() + " where " + 
+                                codigo() + " = ?");
             stmt.setInt(1, codigo);
             stmt.execute();
         
