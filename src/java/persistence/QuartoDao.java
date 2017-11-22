@@ -6,6 +6,7 @@
 package persistence;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -22,57 +23,65 @@ import model.QuartoSolteiro;
  * @author matheus
  */
 public class QuartoDao {
+    
+    
     private static QuartoDao instance = new QuartoDao();
-    
     private QuartoDao(){}
+    public static QuartoDao getInstance(){return instance;}
     
-    public static QuartoDao getInstance(){
-        return instance;
-    }
     
-    public Quarto save(Quarto quarto) throws SQLException, ClassNotFoundException{
+    private static String nameTable()   {return "QUARTO";       }
+    private static String numero()      {return "NUMERO";       }
+    private static String tipo()        {return "TIPO";         }
+    private static String preco()       {return "PRECO";        }
+    private static String tamanho()     {return "TAMANHO";      }
+    private static String vista()       {return "VISTA";        }
+    private static String cama()        {return "CAMA";         }
+    private static String banheiro()    {return "BANHEIRO";     }
+    private static String frigobar()    {return "FRIGOBAR";     }
+    private static String tv()          {return "TV";           }
+    private static String computador()  {return "COMPUTADOR";   }
+    private static String estado()      {return "ESTADO";       }
+    
+    
+    public void save(Quarto quarto) throws SQLException, ClassNotFoundException{
         
         Connection conn = null;
-        Statement st = null;
+        PreparedStatement stmt = null;
         
         try{
             conn = DatabaseLocator.getInstance().getConnection();
-            st = conn.createStatement();
-            st.execute("insert into QUARTO (numero, tipo, preco, tamanho, vista, cama, banheiro, frigobar, tv, computador, estado)" +
-                    "values (" +
-                    quarto.getNumero() + ",'" +
-                    quarto.getTipo() + "'," +
-                    quarto.getPreco() + "," +
-                    quarto.getTamanho() + ",'" +
-                    quarto.getVista() + "'," +
-                    quarto.getCama() + "," +
-                    quarto.getBanheiro() + "," +
-                    quarto.getFrigobar() + "," +
-                    quarto.getTv() + "," +
-                    quarto.getComputador() + ",'" +
-                    quarto.getQuartoEstado() + "')");
-            
-            ResultSet rs = st.executeQuery("select * from QUARTO order by codigo DESC LIMIT 1");
-            while (rs.next()){
-                int codigo = Integer.parseInt(rs.getString("codigo"));
-                int numero = Integer.parseInt(rs.getString("numero"));
-                String tipo = rs.getString("tipo");
-                String vista = rs.getString("vista");
-                String estado = rs.getString("estado");
-                if(tipo.equals("single room")){
-                    quarto = new QuartoSolteiro(codigo, numero, vista, estado, estado);
-                }else if(tipo.equals("twin room")){
-                    quarto = new QuartoDuploSolteiro(codigo, numero, vista, estado, estado);
-                }else if(tipo.equals("double room")){
-                    quarto = new QuartoCasal(codigo, numero, vista, estado, estado);
-                }
-            }
-            return quarto;
+            stmt = conn.prepareStatement("INSERT INTO " + nameTable() + " (" +
+                                numero()        + ", " +
+                                tipo()          + ", " +
+                                preco()         + ", " +
+                                tamanho()       + ", " +
+                                vista()         + ", " +
+                                cama()          + ", " +
+                                banheiro()      + ", " +
+                                frigobar()      + ", " +
+                                tv()            + ", " +
+                                computador()    + ", " +
+                                estado()        + ") " +
+                                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt.setInt     (1, quarto.getNumero()       );
+            stmt.setString  (2, quarto.getTipo()         );
+            stmt.setDouble  (3, quarto.getPreco()        );
+            stmt.setDouble  (4, quarto.getTamanho()      );
+            stmt.setString  (5, quarto.getVista()        );
+            stmt.setInt     (6, quarto.getCama()         );
+            stmt.setInt     (7, quarto.getBanheiro()     );
+            stmt.setBoolean (8, quarto.getFrigobar()     );
+            stmt.setBoolean (9, quarto.getTv()           );
+            stmt.setBoolean (10, quarto.getComputador()  );
+            stmt.setString  (11, quarto.getQuartoEstado());
+            stmt.execute();
+ 
         
         }catch(SQLException e){
             throw e;
         }finally{
-            closeResources(conn, st);
+            closeResources(conn, stmt);
         }
     }
     
