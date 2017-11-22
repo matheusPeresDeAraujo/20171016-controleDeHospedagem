@@ -44,6 +44,26 @@ public abstract class Quarto extends Observable{
     protected boolean frigobar;
     protected boolean tv;
     protected boolean computador;
+
+    public Quarto(int codigo, String estado, int numero, String vista, String tipo, double preco, double tamanho, int cama, int banheiro, boolean frigobar, boolean tv, boolean computador) {
+        this.codigo = codigo;
+        this.estado = estado;
+        this.numero = numero;
+        this.vista = vista;
+        this.tipo = tipo;
+        this.preco = preco;
+        this.tamanho = tamanho;
+        this.cama = cama;
+        this.banheiro = banheiro;
+        this.frigobar = frigobar;
+        this.tv = tv;
+        this.computador = computador;
+    }
+    
+    public Quarto(){
+        
+    }
+    
     
     private List<Observer> observers = new ArrayList();
     protected List<Quarto> estadosSalvos = new ArrayList();
