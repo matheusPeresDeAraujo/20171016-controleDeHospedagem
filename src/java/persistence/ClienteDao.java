@@ -26,16 +26,6 @@ public class ClienteDao {
     public static ClienteDao getInstance(){return instance;}
     
     
-    private static String nameTable()       {return "CLIENTE";      }
-    private static String codigo()          {return "CODIGO";       }
-    private static String nome()            {return "NOME";         }
-    private static String idade()           {return "IDADE";        }
-    private static String identificacao()   {return "IDENTIFICACAO";}
-    private static String telefone()        {return "TELEFONE";     }
-    private static String celular()         {return "CELULAR";      }
-    private static String email()           {return "EMAIL";        }
-    
-    
     public void save(Cliente cliente) throws SQLException, ClassNotFoundException{
         
         Connection conn = null;
@@ -43,14 +33,9 @@ public class ClienteDao {
         
         try{
             conn = DatabaseLocator.getInstance().getConnection();
-            stmt = conn.prepareStatement("insert into " + nameTable() + " (" + 
-                            nome()          + "," + 
-                            idade()         + "," +
-                            identificacao() + "," +
-                            telefone()      + "," +
-                            celular()       + "," +
-                            email()         + ")" +
-                            "values (?,?,?,?,?,?)");
+            stmt = conn.prepareStatement("INSERTE INTO CLIENTE "
+                    + "(NOME, IDADE, IDENTIFICACAO, TELEFONE, CELULAR, EMAIL) "
+                    + "VALUES (?,?,?,?,?,?)");
             parseAtributos(stmt, cliente);
             
         }catch(SQLException e){
@@ -68,8 +53,7 @@ public class ClienteDao {
         
         try{
             conn = DatabaseLocator.getInstance().getConnection();
-            stmt = conn.prepareStatement("delete from " + nameTable() + " where " + 
-                                codigo() + " = ?");
+            stmt = conn.prepareStatement("DELETE FROM CLIENTE WHERE CODIGO = ?");
             stmt.setInt(1, codigo);
             stmt.execute();
         
@@ -88,18 +72,18 @@ public class ClienteDao {
         try{
             conn = DatabaseLocator.getInstance().getConnection();
             st = conn.createStatement();
-            ResultSet rs = st.executeQuery("select * from " + nameTable());
+            ResultSet rs = st.executeQuery("SELECT * FROM CLIENTE");
             busca = new ArrayList<>();
             while (rs.next()){
                
                 busca.add(instanciaCliente(
-                                            rs.getString(codigo()       ),
-                                            rs.getString(nome()         ),
-                                            rs.getString(idade()        ),
-                                            rs.getString(identificacao()),
-                                            rs.getString(telefone()     ),
-                                            rs.getString(celular()      ),
-                                            rs.getString(email()        )
+                                            rs.getString("CODIGO"       ),
+                                            rs.getString("NOME"         ),
+                                            rs.getString("IDADE"        ),
+                                            rs.getString("IDENTIFICACAO"),
+                                            rs.getString("TELEFONE"     ),
+                                            rs.getString("CELULAR"      ),
+                                            rs.getString("EMAIL"        )
                                             ));
                 
             }
@@ -118,19 +102,19 @@ public class ClienteDao {
         Cliente cliente = null;
         try{
             conn = DatabaseLocator.getInstance().getConnection();
-            stmt = conn.prepareStatement("select * from " + nameTable() + " where " + codigo() + " = ?");
+            stmt = conn.prepareStatement("SELECT * FROM CLIENTE WHERE CODIGO = ?");
             stmt.setInt(1, codigo);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()){
                
                 cliente = instanciaCliente(
-                                            rs.getString(codigo()       ),
-                                            rs.getString(nome()         ),
-                                            rs.getString(idade()        ),
-                                            rs.getString(identificacao()),
-                                            rs.getString(telefone()     ),
-                                            rs.getString(celular()      ),
-                                            rs.getString(email()        )
+                                            rs.getString("CODIGO"       ),
+                                            rs.getString("NOME"         ),
+                                            rs.getString("IDADE"        ),
+                                            rs.getString("IDENTIFICACAO"),
+                                            rs.getString("TELEFONE"     ),
+                                            rs.getString("CELULAR"      ),
+                                            rs.getString("EMAIL"        )
                                             );
                 
             }
@@ -149,14 +133,7 @@ public class ClienteDao {
         
         try{
             conn = DatabaseLocator.getInstance().getConnection();
-            stmt = conn.prepareStatement("UPDATE " + nameTable() + " SET " + 
-                    nome()          + " = ?, " + 
-                    idade()         + " = ?, " +
-                    identificacao() + " = ?, " +
-                    telefone()      + " = ?, " +
-                    celular()       + " = ?, " +
-                    email()         + " = ? where " +
-                    codigo()        + " = ?");
+            stmt = conn.prepareStatement("UPDATE CLIENTE SET NOME = ?, IDADE = ?, IDENTIFICACAO = ?, TELEFONE = ?, CELULAR = ?, EMAIL = ? WHERE CODIGO = ?");
             parseAtributos(stmt, cliente);
         
         }catch(SQLException e){
