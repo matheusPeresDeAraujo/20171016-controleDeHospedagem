@@ -11,16 +11,14 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Quarto;
 import model.Sala;
 import model.SalaAuditorio;
 import model.SalaBanquete;
 import model.SalaEscolar;
 import model.SalaEspinhaDePeixe;
+import model.SalaFactory;
 import model.SalaFormatoU;
 import model.SalaReuniao;
 import persistence.SalaDao;
@@ -45,22 +43,12 @@ public class AlterarSalaAction implements Action{
             String nome = request.getParameter("textNome");
             Double preco = Double.parseDouble(request.getParameter("textPreco"));
             try{
-                Sala sala = null;
-                if(nome.equals("auditorio")){
-                    sala = new SalaAuditorio(codigo, numero, preco);
-                }else if(nome.equals("banquete")){
-                    sala = new SalaBanquete(codigo, numero, preco);
-                }else if(nome.equals("escolar")){
-                    sala = new SalaEscolar(codigo, numero, preco);
-                }else if(nome.equals("espinhadepeixe")){
-                    sala = new SalaEspinhaDePeixe(codigo, numero, preco);
-                }else if(nome.equals("formatoU")){
-                    sala = new SalaFormatoU(codigo, numero, preco);
-                }else if(nome.equals("reuniao")){
-                    sala = new SalaReuniao(codigo, numero, preco);
-                }else{
-                    sala = new SalaAuditorio(codigo, numero, preco);
-                }
+                
+                Sala sala = (Sala) SalaFactory.create(nome);
+                sala.setCodigo(codigo);
+                sala.setNumero(numero);
+                sala.setPreco(preco);
+                
                 SalaDao.getInstance().update(sala);
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(AlterarSalaAction.class.getName()).log(Level.SEVERE, null, ex);

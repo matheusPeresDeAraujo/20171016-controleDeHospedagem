@@ -67,12 +67,12 @@ public abstract class Sala {
         this.preco = preco;
     }
 
-    public double getPrecoComPromocao() {
+    public double getPrecoPromocao() {
         return precoPromocao;
     }
 
-    public void setPrecoComPromocao(double precoComPromocao) {
-        this.precoPromocao = precoComPromocao;
+    public void setPrecoPromocao(double precoPromocao) {
+        this.precoPromocao = precoPromocao;
     }
     
     protected Double calculaPreco(){
