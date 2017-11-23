@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
 import model.Cliente;
 import model.Quarto;
 import model.QuartoCasal;
-import model.QuartoDisponivel;
+import model.QuartoEstadoDisponivel;
 import model.QuartoDuploSolteiro;
 import model.QuartoMemento;
 import model.QuartoSolteiro;

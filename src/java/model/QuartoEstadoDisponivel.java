@@ -9,33 +9,34 @@ package model;
  *
  * @author matheus
  */
-public class QuartoManutencao implements QuartoEstado{
-
+public class QuartoEstadoDisponivel implements QuartoEstado{
     @Override
     public String Disponivel(Quarto quarto) {
-        quarto.setQuartoEstado(new QuartoDisponivel());
-        return "Alteração aceita";
+        return "Alteração recusada";
     }
 
     @Override
     public String Ocupado(Quarto quarto) {
-        return "Alteração recusada";
+        quarto.setQuartoEstado(new QuartoEstadoOcupado());
+        return "Alteração aceita";
     }
 
     @Override
     public String Manutencao(Quarto quarto) {
-        return "Alteração recusada";
+        quarto.setQuartoEstado(new QuartoEstadoManutencao());
+        return "Alteração aceita";
     }
 
     @Override
     public String getEstado(Quarto quarto) {
-        quarto.setEstado("manutencao");
-        return "manutencao";
+        quarto.setEstado("disponivel");
+        return "disponivel";
     }
 
     @Override
     public String toString() {
-        return "QuartoManutencao";
+        return "QuartoDisponivel";
     }
+    
     
 }

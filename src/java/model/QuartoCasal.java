@@ -19,11 +19,11 @@ public class QuartoCasal extends Quarto{
         this.vista = vista;
         
         if(estado.equals("disponivel")){
-            this.quartoEstado = new QuartoDisponivel();
+            this.quartoEstado = new QuartoEstadoDisponivel();
         }else if(estado.equals("ocupado")){
-            this.quartoEstado = new QuartoOcupado();
+            this.quartoEstado = new QuartoEstadoOcupado();
         }else{
-            this.quartoEstado = new QuartoManutencao();
+            this.quartoEstado = new QuartoEstadoManutencao();
         }
     }
     
@@ -33,11 +33,11 @@ public class QuartoCasal extends Quarto{
         this.vista = vista;
         
         if(estado.equals("disponivel")){
-            this.quartoEstado = new QuartoDisponivel();
+            this.quartoEstado = new QuartoEstadoDisponivel();
         }else if(estado.equals("ocupado")){
-            this.quartoEstado = new QuartoOcupado();
+            this.quartoEstado = new QuartoEstadoOcupado();
         }else{
-            this.quartoEstado = new QuartoManutencao();
+            this.quartoEstado = new QuartoEstadoManutencao();
         }
         
         this.estado = estadoValue;

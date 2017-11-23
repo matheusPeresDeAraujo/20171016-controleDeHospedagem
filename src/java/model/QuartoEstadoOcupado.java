@@ -9,11 +9,11 @@ package model;
  *
  * @author matheus
  */
-public class QuartoOcupado implements QuartoEstado{
+public class QuartoEstadoOcupado implements QuartoEstado{
 
     @Override
     public String Disponivel(Quarto quarto) {
-        quarto.setQuartoEstado(new QuartoDisponivel());
+        quarto.setQuartoEstado(new QuartoEstadoDisponivel());
         return "Alteração aceita";
     }
 
@@ -24,7 +24,7 @@ public class QuartoOcupado implements QuartoEstado{
 
     @Override
     public String Manutencao(Quarto quarto) {
-        quarto.setQuartoEstado(new QuartoManutencao());
+        quarto.setQuartoEstado(new QuartoEstadoManutencao());
         return "Alteração aceita";
     }
 

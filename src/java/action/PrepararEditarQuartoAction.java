@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Quarto;
-import model.QuartoDisponivel;
+import model.QuartoEstadoDisponivel;
 import model.QuartoMemento;
 import persistence.QuartoDao;
 
