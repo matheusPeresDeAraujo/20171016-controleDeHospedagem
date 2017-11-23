@@ -17,7 +17,7 @@ import persistence.ClienteDao;
  */
 public class Cliente implements Observer{
         
-    private int codigo;
+    private int codigo = 0;
     private int idade;
     private String nome;
     private String identificacao;
@@ -49,8 +49,7 @@ public class Cliente implements Observer{
         this.email = email;
     }
     
-    public Cliente(String codigo, String idade, String nome, String identificacao, String telefone, String celular, String email){
-        this.codigo = Integer.parseInt(codigo);
+    public Cliente(String idade, String nome, String identificacao, String telefone, String celular, String email){
         this.idade = Integer.parseInt(idade);
         this.nome = nome;
         this.identificacao = identificacao;

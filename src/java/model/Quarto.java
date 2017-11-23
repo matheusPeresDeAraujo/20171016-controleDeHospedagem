@@ -29,7 +29,6 @@ public abstract class Quarto extends Observable{
     }
     
     
-    
     protected int codigo;
     protected QuartoEstado quartoEstado;
     protected String estado;

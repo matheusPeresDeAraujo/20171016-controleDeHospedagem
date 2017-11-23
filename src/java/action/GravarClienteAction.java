@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Cliente;
@@ -34,13 +32,11 @@ public class GravarClienteAction implements Action{
                 request.getParameter("textCelular").equals("null")      || 
                 request.getParameter("textEmail").equals("null")){
             
-                String resposta = "Alteração recusada";
-                request.setAttribute("resposta", resposta);
+                request.setAttribute("resposta", "Alteração recusada");
                 
         } else{
             try {
                 Cliente cliente = new Cliente(
-                    "0",
                     request.getParameter("textIdade"), 
                     request.getParameter("textNome"), 
                     request.getParameter("textIdentificacao"), 
@@ -55,8 +51,8 @@ public class GravarClienteAction implements Action{
             }    
         }
         
-        Action actionObject = ActionFactory.create("BuscarCliente");
-        actionObject.execute(request, response);
+        BuscarClienteAction buscarCliente = new BuscarClienteAction();
+        buscarCliente.execute(request, response);
         
     } 
 }

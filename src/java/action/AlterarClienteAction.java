@@ -35,19 +35,18 @@ public class AlterarClienteAction implements Action{
                 request.getParameter("textCelular").equals("null")      || 
                 request.getParameter("textEmail").equals("null")){
             
-            String resposta = "Alteração recusada";
-            request.setAttribute("resposta", resposta);
+            request.setAttribute("resposta", "Alteração recusada");
             
         } else{
             try{
                 Cliente cliente = new Cliente(
-                        request.getParameter("textCodigo"),
                         request.getParameter("textIdade"), 
                         request.getParameter("textNome"), 
                         request.getParameter("textIdentificacao"), 
                         request.getParameter("textTelefone"), 
                         request.getParameter("textCelular"), 
                         request.getParameter("textEmail"));
+                cliente.setCodigo(Integer.parseInt(request.getParameter("textCodigo")));
                 
                 ClienteDao.getInstance().update(cliente);
                 

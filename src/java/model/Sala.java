@@ -5,6 +5,7 @@
  */
 package model;
 
+import controller.Action;
 import java.sql.SQLException;
 import java.util.List;
 import persistence.SalaDao;
@@ -75,10 +76,9 @@ public abstract class Sala {
     }
     
     protected Double calculaPreco(){
-        double cemPorcento = 100;
-        double desconto = cemPorcento + this.getDesconto();
-        
+        double desconto = 100 + this.getDesconto();
         return this.preco * desconto;
+        
     }
     
     public static List<Sala> obterSalas() throws SQLException, ClassNotFoundException{
@@ -88,6 +88,4 @@ public abstract class Sala {
     public static Sala obterSala(int codigo) throws SQLException, ClassNotFoundException{
         return SalaDao.obterSala(codigo);
     }
-    
-    
 }
