@@ -30,21 +30,6 @@ public class QuartoDao {
     public static QuartoDao getInstance(){return instance;}
     
     
-    private static String nameTable()   {return "QUARTO";       }
-    private static String codigo()      {return "CODIGO";       }
-    private static String numero()      {return "NUMERO";       }
-    private static String tipo()        {return "TIPO";         }
-    private static String preco()       {return "PRECO";        }
-    private static String tamanho()     {return "TAMANHO";      }
-    private static String vista()       {return "VISTA";        }
-    private static String cama()        {return "CAMA";         }
-    private static String banheiro()    {return "BANHEIRO";     }
-    private static String frigobar()    {return "FRIGOBAR";     }
-    private static String tv()          {return "TV";           }
-    private static String computador()  {return "COMPUTADOR";   }
-    private static String estado()      {return "ESTADO";       }
-    
-    
     public void save(Quarto quarto) throws SQLException, ClassNotFoundException{
         
         Connection conn = null;
@@ -52,19 +37,7 @@ public class QuartoDao {
         
         try{
             conn = DatabaseLocator.getInstance().getConnection();
-            stmt = conn.prepareStatement("INSERT INTO " + nameTable() + " (" +
-                                numero()        + ", " +
-                                tipo()          + ", " +
-                                preco()         + ", " +
-                                tamanho()       + ", " +
-                                vista()         + ", " +
-                                cama()          + ", " +
-                                banheiro()      + ", " +
-                                frigobar()      + ", " +
-                                tv()            + ", " +
-                                computador()    + ", " +
-                                estado()        + ") " +
-                                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt = conn.prepareStatement("INSERT INTO QUARTO (NUMERO, TIPO, PRECO, TAMANHO, VISTA, CAMA, BANHEIRO, FRIGOBAR, TV, COMPUTADOR, ESTADO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             parseAtributos(stmt, quarto);
             stmt.execute();
         
@@ -82,8 +55,7 @@ public class QuartoDao {
         
         try{
             conn = DatabaseLocator.getInstance().getConnection();
-            stmt = conn.prepareStatement("DELETE FROM " + nameTable() + " WHERE " + 
-                                codigo() + " = ?");
+            stmt = conn.prepareStatement("DELETE FROM QUARTO WHERE CODIGO = ?");
             stmt.setInt(1, codigo);
             stmt.execute();
         
@@ -102,22 +74,22 @@ public class QuartoDao {
         try{
             conn = DatabaseLocator.getInstance().getConnection();
             st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM " + nameTable());
-            quartos = new ArrayList<Quarto>();
+            ResultSet rs = st.executeQuery("SELECT * FROM QUARTO");
+            quartos = new ArrayList<>();
             while (rs.next()){
                 
-                int codigo = Integer.parseInt(rs.getString(codigo()));
-                int numero = Integer.parseInt(rs.getString(numero()));
-                String tipo = rs.getString(tipo());
-                Double preco = Double.parseDouble(rs.getString(preco()));
-                Double tamanho = Double.parseDouble(rs.getString(tamanho()));
-                String vista = rs.getString(vista());
-                String estado = rs.getString(estado());
-                int cama = Integer.parseInt(rs.getString(cama()));
-                int banheiro = Integer.parseInt(rs.getString(banheiro()));
-                Boolean frigobar = Boolean.parseBoolean(rs.getString(frigobar()));
-                Boolean tv = Boolean.parseBoolean(rs.getString(tv()));
-                Boolean computador = Boolean.parseBoolean(rs.getString(computador()));
+                int codigo = Integer.parseInt(rs.getString("CODIGO"));
+                int numero = Integer.parseInt(rs.getString("NUMERO"));
+                String tipo = rs.getString("TIPO");
+                Double preco = Double.parseDouble(rs.getString("PRECO"));
+                Double tamanho = Double.parseDouble(rs.getString("TAMANHO"));
+                String vista = rs.getString("VISTA");
+                String estado = rs.getString("ESTADO");
+                int cama = Integer.parseInt(rs.getString("CAMA"));
+                int banheiro = Integer.parseInt(rs.getString("BANHEIRO"));
+                Boolean frigobar = Boolean.parseBoolean(rs.getString("FRIGOBAR"));
+                Boolean tv = Boolean.parseBoolean(rs.getString("TV"));
+                Boolean computador = Boolean.parseBoolean(rs.getString("COMPUTADOR"));
                 
                 if(tipo.equals("single room")){
                     quartos.add(new QuartoSolteiro(codigo, numero, vista, estado, estado));
@@ -143,21 +115,21 @@ public class QuartoDao {
         try{
             conn = DatabaseLocator.getInstance().getConnection();
             st = conn.createStatement();
-            ResultSet rs = st.executeQuery("select * from " + nameTable() +" where " + 
-                                codigo() + " = " + cod);
+            ResultSet rs = st.executeQuery("SELECT * FROM QUARTO WHERE CODIGO = " + cod);
             while (rs.next()){
-                int codigo = Integer.parseInt(rs.getString(codigo()));
-                int numero = Integer.parseInt(rs.getString(numero()));
-                String tipo = rs.getString(tipo());
-                Double preco = Double.parseDouble(rs.getString(preco()));
-                Double tamanho = Double.parseDouble(rs.getString(tamanho()));
-                String vista = rs.getString(vista());
-                String estado = rs.getString(estado());
-                int cama = Integer.parseInt(rs.getString(cama()));
-                int banheiro = Integer.parseInt(rs.getString(banheiro()));
-                Boolean frigobar = Boolean.parseBoolean(rs.getString(frigobar()));
-                Boolean tv = Boolean.parseBoolean(rs.getString(tv()));
-                Boolean computador = Boolean.parseBoolean(rs.getString(computador()));
+                int codigo = Integer.parseInt(rs.getString("CODIGO"));
+                int numero = Integer.parseInt(rs.getString("NUMERO"));
+                String tipo = rs.getString("TIPO");
+                Double preco = Double.parseDouble(rs.getString("PRECO"));
+                Double tamanho = Double.parseDouble(rs.getString("TAMANHO"));
+                String vista = rs.getString("VISTA");
+                String estado = rs.getString("ESTADO");
+                int cama = Integer.parseInt(rs.getString("CAMA"));
+                int banheiro = Integer.parseInt(rs.getString("BANHEIRO"));
+                Boolean frigobar = Boolean.parseBoolean(rs.getString("FRIGOBAR"));
+                Boolean tv = Boolean.parseBoolean(rs.getString("TV"));
+                Boolean computador = Boolean.parseBoolean(rs.getString("COMPUTADOR"));
+                
                 if(tipo.equals("single room")){
                     quarto = new QuartoSolteiro(codigo, numero, vista, estado, estado);
                 }else if(tipo.equals("twin room")){
@@ -181,19 +153,7 @@ public class QuartoDao {
         
         try{
             conn = DatabaseLocator.getInstance().getConnection();
-            stmt = conn.prepareStatement("UPDATE " + nameTable() + " SET " + 
-                    numero()        + " = ?, " +
-                    tipo()          + " = ?, " +
-                    preco()         + " = ?, " +
-                    tamanho()       + " = ?, " +
-                    vista()         + " = ?, " +
-                    cama()          + " = ?, " +
-                    banheiro()      + " = ?, " +
-                    frigobar()      + " = ?, " +
-                    tv()            + " = ?, " +
-                    computador()    + " = ?, " +
-                    estado()        + " = ? WHERE " +
-                    codigo()        + " = ?");
+            stmt = conn.prepareStatement("UPDATE QUARTO SET NUMERO = ?, TIPO = ?, PRECO = ?, TAMANHO = ?, VISTA = ?, CAMA = ?, BANHEIRO = ?, FRIGOBAR = ?, TV = ?, COMPUTADOR = ?, ESTADO = ? WHERE CODIGO = ?");
             parseAtributos(stmt, quarto);
             stmt.setInt     (12, quarto.getCodigo()      );
             stmt.execute();
@@ -214,7 +174,7 @@ public class QuartoDao {
         try{
             conn = DatabaseLocator.getInstance().getConnection();
             st = conn.createStatement();
-            st.execute("insert into INTERESSE (cod_cliente, cod_quarto)" +
+            st.execute("INSERT INTO INTERESSE (cod_cliente, cod_quarto)" +
                     "values (" +
                     cliente.getCodigo() + "," +
                     quarto.getCodigo() + ")");

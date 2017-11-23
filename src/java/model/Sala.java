@@ -18,7 +18,7 @@ public abstract class Sala {
     protected int codigo;
     protected int numero;
     protected double preco;
-    protected double precoComPromocao;
+    protected double precoPromocao;
     protected String nome;
     protected Promocao promocao;
 
@@ -67,11 +67,11 @@ public abstract class Sala {
     }
 
     public double getPrecoComPromocao() {
-        return precoComPromocao;
+        return precoPromocao;
     }
 
     public void setPrecoComPromocao(double precoComPromocao) {
-        this.precoComPromocao = precoComPromocao;
+        this.precoPromocao = precoComPromocao;
     }
     
     protected Double calculaPreco(){

@@ -29,6 +29,6 @@ public class SalaReuniao extends Sala{
         this.numero = numero;
         this.promocao = new PromocaoNv2();
         this.preco = preco;
-        this.precoComPromocao = calculaPreco();
+        this.precoPromocao = calculaPreco();
     }
 }

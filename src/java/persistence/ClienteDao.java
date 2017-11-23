@@ -164,14 +164,9 @@ public class ClienteDao {
     private static Cliente instanciaCliente(String codigo, String nome, String idade, String identificacao, String telefone, String celular, String email) throws SQLException{
         
         int codigoCliente = Integer.parseInt(codigo);
-        String nomeCliente = nome;
         int idadeCliente = Integer.parseInt(idade);
-        String identificacaoCliente = identificacao;
-        String telefoneCliente = telefone;
-        String celularCliente = celular;
-        String emailCliente = email;
         
-        return new Cliente(codigoCliente, idadeCliente, nomeCliente, identificacaoCliente, telefoneCliente, celularCliente, emailCliente);
+        return new Cliente(codigoCliente, idadeCliente, nome, identificacao, telefone, celular, email);
     }
     
     private static void parseAtributos(PreparedStatement stmt, Cliente cliente) throws SQLException{
