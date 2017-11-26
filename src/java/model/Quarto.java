@@ -130,6 +130,7 @@ public abstract class Quarto extends Observable{
     
     public void updateQuarto(HttpServletRequest request) throws SQLException, ClassNotFoundException{
         
+        this.codigo = Integer.parseInt(request.getParameter("textCodigo"));
         setParameter(request);
         QuartoDao.getInstance().update(this);
         
@@ -137,9 +138,6 @@ public abstract class Quarto extends Observable{
     
     public void setParameter(HttpServletRequest request){
         
-        if(Integer.parseInt(request.getParameter("textCodigo")) != 0){
-            this.codigo = Integer.parseInt(                request.getParameter("textCodigo"));
-        }
             this.numero = Integer.parseInt(                request.getParameter("textNumero"));
             this.vista =                                   request.getParameter("textVista");
             this.quartoEstado = QuartoEstadoFactory.create(request.getParameter("textEstado"));

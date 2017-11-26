@@ -2,6 +2,7 @@ package model;
 
 import java.sql.SQLException;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import persistence.SalaDao;
 
 public abstract class Sala {
@@ -60,7 +61,7 @@ public abstract class Sala {
     
     protected Double calculaPreco(){
         double desconto = 100 + this.getDesconto();
-        return this.preco * desconto;
+        return this.preco * desconto/100;
         
     }
     
@@ -70,5 +71,31 @@ public abstract class Sala {
     
     public static Sala obterSala(int codigo) throws SQLException, ClassNotFoundException{
         return SalaDao.obterSala(codigo);
+    }
+    
+    public void saveSala(HttpServletRequest request) throws SQLException, ClassNotFoundException{
+        
+        setParameter(request);
+        SalaDao.getInstance().save(this);
+        
+    }
+    
+    public void updateSala(HttpServletRequest request) throws SQLException, ClassNotFoundException{
+        
+        this.codigo = Integer.parseInt(request.getParameter("textCodigo"));
+        setParameter(request);
+        SalaDao.getInstance().update(this);
+        
+    }
+    
+    public void setParameter(HttpServletRequest request){
+        this.numero = Integer.parseInt(request.getParameter("textNumero"));
+        this.preco = Double.parseDouble(request.getParameter("textPreco"));
+    }
+    
+    public static void dropSala(int codigo) throws SQLException, ClassNotFoundException{
+        
+        SalaDao.getInstance().drop(codigo);
+        
     }
 }

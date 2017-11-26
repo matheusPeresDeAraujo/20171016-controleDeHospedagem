@@ -85,15 +85,9 @@
                                             <tr>
                                                 <td><c:out value="${quarto.numero}" /></td>
                                                 <td><c:out value="${quarto.tipo}" /></td>
-                                                <td><c:out value="${quarto.estado}" /></td>
-                                                <!--
-                                                <td><a class="btn btn-success btn-xs <c:if test="${quarto.estado.equals('ocupado') || quarto.estado.equals('manutencao')}"> disabled</c:if>" role="button" href="FrontController?action=PrepararCheckInQuarto&codigo=<c:out value="${quarto.codigo}"/>">Check-in</a></td>
-                                                <td><a class="btn btn-danger btn-xs <c:if test="${!quarto.estado.equals('ocupado')}"> disabled</c:if>" role="button" href="FrontController?action=PrepararCheckOutQuarto&codigo=<c:out value="${quarto.codigo}"/>">Check-out</a></td>
-                                                <td><a class="btn btn-primary btn-xs <c:if test="${!quarto.estado.equals('reservado') && !quarto.estado.equals('disponivel')}"> disabled</c:if>" role="button" href="FrontController?action=PrepararReservarQuarto&codigo=<c:out value="${quarto.codigo}"/>">Reservar</a></td>
-                                                    -->
+                                                <td><c:out value="${quarto.quartoEstado}" /></td>
                                                 <td><a class="btn btn-success btn-xs " role="button" href="FrontController?action=PrepararCheckInQuarto&codigo=<c:out value="${quarto.codigo}"/>">Check-in</a></td>
                                                 <td><a class="btn btn-danger btn-xs " role="button" href="FrontController?action=PrepararCheckOutQuarto&codigo=<c:out value="${quarto.codigo}"/>">Check-out</a></td>
-                                                <!--<td><a class="btn btn-primary btn-xs " role="button" href="FrontController?action=PrepararReservarQuarto&codigo=<c:out value="${quarto.codigo}"/>">Reservar</a></td>-->
                                                 <td><a href="FrontController?action=MementoAnte&codigo=<c:out value="${quarto.codigo}"/>" class="" role="button"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span></a></td>
                                                 <td><a href="FrontController?action=MementoProx&codigo=<c:out value="${quarto.codigo}"/>" class="" role="button"><span class="glyphicon glyphicon-forward" aria-hidden="true"></span></a></td>
                                             </tr>

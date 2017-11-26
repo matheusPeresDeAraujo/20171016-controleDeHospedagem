@@ -16,12 +16,11 @@ public class PrepararEditarSalaAction implements Action{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-           int codigo = Integer.parseInt(request.getParameter("codigo"));
-            Sala sala;
-            sala = Sala.obterSala(codigo);
-            request.setAttribute("sala", sala);
+            
+            request.setAttribute("sala", Sala.obterSala(Integer.parseInt(request.getParameter("codigo"))));
             RequestDispatcher view = request.getRequestDispatcher("CRUDsala/SalaUpdate.jsp");
             view.forward(request, response);
+            
         } catch (ServletException | IOException | ClassNotFoundException ex) {
         } catch (SQLException ex) {
             Logger.getLogger(PrepararEditarSalaAction.class.getName()).log(Level.SEVERE, null, ex);

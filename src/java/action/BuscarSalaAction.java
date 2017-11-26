@@ -9,14 +9,14 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import persistence.SalaDao;
+import model.Sala;
 
 public class BuscarSalaAction implements Action{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
          try {
-            request.setAttribute("salas", SalaDao.obterSalas());
+            request.setAttribute("salas", Sala.obterSalas());
             RequestDispatcher view = 
                     request.getRequestDispatcher("CRUDsala/Sala.jsp");
             view.forward(request, response);

@@ -53,8 +53,8 @@
                                         </div>
                                         <div class="form-group">
                                             <th><span>Estado </span></th>
-                                            <input name="textEstado" type="text" value="${quarto.estado}" hidden/>
-                                            <input class="form-control" placeholder="Estado" name="textEstado" type="text" value="${quarto.estado}" readonly="readonly"/>
+                                            <input name="textEstado" type="text" value="${quarto.quartoEstado}" hidden/>
+                                            <input class="form-control" placeholder="Estado" name="textEstado" type="text" value="${quarto.quartoEstado}" readonly="readonly"/>
                                         </div>
                                         <input class="btn btn-lg btn-danger btn-block" type="submit" value="Apagar">
                                     </fieldset>

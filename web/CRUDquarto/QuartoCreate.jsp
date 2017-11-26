@@ -48,7 +48,6 @@
                                             <select name="textEstado" class="form-control">
                                                 <option name="textEstado" value="Disponivel">Disponivel</option>
                                                 <option name="textEstado" value="Ocupado">Ocupado</option>
-                                                <!--<option name="textEstado" value="reservado">Reservado</option>-->
                                                 <option name="textEstado" value="Manutencao">Manutencao</option>
                                             </select>
                                         </div>

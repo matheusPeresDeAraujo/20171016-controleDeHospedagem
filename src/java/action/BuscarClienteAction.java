@@ -9,14 +9,14 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import persistence.ClienteDao;
+import model.Cliente;
 
 public class BuscarClienteAction implements Action{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            request.setAttribute("clientes", ClienteDao.obterClientes());
+            request.setAttribute("clientes", Cliente.obterClientes());
             RequestDispatcher view = 
                     request.getRequestDispatcher("CRUDcliente/Cliente.jsp");
             view.forward(request, response);

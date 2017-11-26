@@ -15,16 +15,13 @@ public class PrepararExcluirSalaAction implements Action{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int codigo = Integer.parseInt(request.getParameter("codigo"));
-        Sala sala = null;
         try {
-            sala = Sala.obterSala(codigo);
-            request.setAttribute("sala", sala);
+            
+            request.setAttribute("sala", Sala.obterSala(Integer.parseInt(request.getParameter("codigo"))));
             RequestDispatcher view = request.getRequestDispatcher("CRUDsala/SalaDelete.jsp");
             view.forward(request, response);
-        } catch (ServletException ex) {
-        } catch (IOException ex) {
-        } catch (ClassNotFoundException ex) {
+            
+        } catch (ServletException | IOException | ClassNotFoundException ex) {
         } catch (SQLException ex) {
             Logger.getLogger(PrepararExcluirSalaAction.class.getName()).log(Level.SEVERE, null, ex);
         }

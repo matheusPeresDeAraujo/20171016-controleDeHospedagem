@@ -113,7 +113,8 @@ public class Cliente implements Observer{
     }
     
     public void updateCliente(HttpServletRequest request) throws SQLException, ClassNotFoundException{
-        
+            
+        this.codigo = Integer.parseInt(request.getParameter("textCodigo"));
         setParameter(request);
         ClienteDao.getInstance().update(this);  
         
@@ -121,9 +122,6 @@ public class Cliente implements Observer{
     
     private void setParameter(HttpServletRequest request){
         
-        if(Integer.parseInt(request.getParameter("textCodigo")) != 0){
-            this.codigo = Integer.parseInt(request.getParameter("textCodigo"));
-        }
             this.idade = Integer.parseInt( request.getParameter("textIdade"));
             this.nome =                    request.getParameter("textNome");
             this.identificacao =           request.getParameter("textIdentificacao");
