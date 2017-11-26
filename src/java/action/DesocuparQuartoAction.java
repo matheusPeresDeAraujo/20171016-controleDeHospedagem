@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package action;
 
 import controller.Action;
@@ -23,10 +18,6 @@ import persistence.AlugaDao;
 import persistence.ClienteDao;
 import persistence.QuartoDao;
 
-/**
- *
- * @author matheus
- */
 public class DesocuparQuartoAction implements Action{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {

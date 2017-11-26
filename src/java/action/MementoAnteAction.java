@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package action;
 
 import controller.Action;
@@ -19,10 +14,6 @@ import javax.servlet.http.HttpSession;
 import model.Quarto;
 import persistence.QuartoDao;
 
-/**
- *
- * @author matheus
- */
 public class MementoAnteAction implements Action{
 
     @Override

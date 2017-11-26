@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package action;
 
 import controller.Action;
@@ -14,19 +9,9 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Sala;
-import model.SalaAuditorio;
-import model.SalaBanquete;
-import model.SalaEscolar;
-import model.SalaEspinhaPeixe;
 import model.SalaFactory;
-import model.SalaFormatoU;
-import model.SalaReuniao;
 import persistence.SalaDao;
 
-/**
- *
- * @author matheus
- */
 public class AlterarSalaAction implements Action{
 
     @Override
