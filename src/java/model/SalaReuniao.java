@@ -11,24 +11,20 @@ package model;
  */
 public class SalaReuniao extends Sala{
     public SalaReuniao(){
-        this.nome = "reuniao";
         this.promocao = new PromocaoNv2();
-    }
-    
-    public SalaReuniao(int numero, double preco){
-        super();
-        this.nome = "reuniao";
-        this.numero = numero;
-        this.preco = preco;
     }
     
     public SalaReuniao(int codigo, int numero, double preco){
         super();
-        this.nome = "reuniao";
         this.codigo = codigo;
         this.numero = numero;
         this.promocao = new PromocaoNv2();
         this.preco = preco;
         this.precoPromocao = calculaPreco();
+    }
+
+    @Override
+    public String getNome() {
+        return "Reuniao";
     }
 }

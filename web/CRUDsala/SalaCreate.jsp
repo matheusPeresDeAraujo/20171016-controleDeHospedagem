@@ -22,11 +22,7 @@
         <!--<link rel="icon" href="img/favicon.ico">-->
 
         <title> Controle de Hospedagem </title>
-
-        <!-- Bootstrap core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Custom styles for this template -->
         <link href="css/jumbotron-narrow.css" rel="stylesheet">
 
     </head>
@@ -52,12 +48,12 @@
                                         </div>
                                         <div class="form-group">
                                             <select name="textNome" class="form-control">
-                                                <option name="textNome" value="auditorio">Sala Auditorio</option>
-                                                <option name="textNome" value="banquete">Sala Banquete</option>
-                                                <option name="textNome" value="escolar">Sala Escolar</option>
-                                                <option name="textNome" value="espinhadepeixe">Sala Espinha de Peixe</option>
-                                                <option name="textNome" value="formatoU">Sala Formato U</option>
-                                                <option name="textNome" value="reuniao">Sala Reuniao</option>
+                                                <option name="textNome" value="Auditorio">Sala Auditorio</option>
+                                                <option name="textNome" value="Banquete">Sala Banquete</option>
+                                                <option name="textNome" value="Escolar">Sala Escolar</option>
+                                                <option name="textNome" value="EspinhaPeixe">Sala Espinha de Peixe</option>
+                                                <option name="textNome" value="FormatoU">Sala Formato U</option>
+                                                <option name="textNome" value="Reuniao">Sala Reuniao</option>
                                             </select>
                                         </div>
                                         <div class="form-group">

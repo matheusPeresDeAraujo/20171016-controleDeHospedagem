@@ -1,109 +1,77 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package persistence;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.Sala;
-import model.SalaAuditorio;
-import model.SalaBanquete;
-import model.SalaEscolar;
-import model.SalaEspinhaDePeixe;
-import model.SalaFormatoU;
-import model.SalaReuniao;
+import model.SalaFactory;
 
-/**
- *
- * @author matheus
- */
 public class SalaDao {
+    
+    
     private static SalaDao instance = new SalaDao();
-    
     private SalaDao(){}
+    public static SalaDao getInstance(){return instance;}
     
-    public static SalaDao getInstance(){
-        return instance;
-    }
     
     public void save(Sala sala) throws SQLException, ClassNotFoundException{
         
         Connection conn = null;
-        Statement st = null;
+        PreparedStatement stmt = null;
         
         try{
             conn = DatabaseLocator.getInstance().getConnection();
-            st = conn.createStatement();
-            st.execute("insert into SALA (numero, preco, nome)" +
-                    "values (" +
-                    sala.getNumero() + "," +
-                    sala.getPreco() + ",'" +
-                    sala.getNome() + "')");
+            stmt = conn.prepareStatement("INSERT INTO SALA (NUMERO, PRECO, NOME) VALUES(?, ?, ?)");
+            parseAtributos(stmt, sala);
         
         }catch(SQLException e){
             throw e;
         }finally{
-            closeResources(conn, st);
+            closeResources(conn, stmt);
         }
     }
+    
     
     public void drop(int codigo) throws SQLException, ClassNotFoundException{
         
         Connection conn = null;
-        Statement st = null;
+        PreparedStatement stmt = null;
         
         try{
             conn = DatabaseLocator.getInstance().getConnection();
-            st = conn.createStatement();
-            st.execute("delete from SALA where codigo = " + codigo);
+            stmt = conn.prepareStatement("DELETE FROM SALA WHERE CODIGO = ?");
+            stmt.setInt     (1, codigo);
+            stmt.execute();
         
         }catch(SQLException e){
             throw e;
         }finally{
-            closeResources(conn, st);
+            closeResources(conn, stmt);
         }
     }
+    
     
     public static List<Sala> obterSalas() throws SQLException, ClassNotFoundException{
         
         Connection conn = null;
         Statement st = null;
-        List<Sala> busca = null;
+        List<Sala> salas = new ArrayList<>();
+        
         try{
             conn = DatabaseLocator.getInstance().getConnection();
             st = conn.createStatement();
-            ResultSet rs = st.executeQuery("select * from SALA");
-            busca = new ArrayList<Sala>();
+            ResultSet rs = st.executeQuery("SELECT * FROM SALA");
+            
             while (rs.next()){
-                int codigo = Integer.parseInt(rs.getString("codigo"));
-                int numero = Integer.parseInt(rs.getString("numero"));
-                double preco = Double.parseDouble(rs.getString("preco"));
-                String nome = rs.getString("nome");
-                if(nome.equals("auditorio")){
-                    SalaAuditorio sala =  new SalaAuditorio(codigo, numero, preco);
-                    busca.add(sala);
-                }else if(nome.equals("banquete")){
-                    busca.add(new SalaBanquete(codigo, numero, preco));
-                }else if(nome.equals("escolar")){
-                    busca.add(new SalaEscolar(codigo, numero, preco));
-                }else if(nome.equals("espinhadepeixe")){
-                    busca.add(new SalaEspinhaDePeixe(codigo, numero, preco));
-                }else if(nome.equals("formatoU")){
-                    busca.add(new SalaFormatoU(codigo, numero, preco));
-                }else if(nome.equals("reuniao")){
-                    busca.add(new SalaReuniao(codigo, numero, preco));
-                }else{
-                    busca.add(new SalaAuditorio(codigo, numero, preco));
-                }
-
+                
+                salas.add(instanciaSala(rs));
+                
             }
-            return busca;
+            return salas;
         }catch(SQLException e){
             throw e;
         }finally{
@@ -111,70 +79,76 @@ public class SalaDao {
         }
     }
     
-    public static Sala obterSala(int cod) throws SQLException, ClassNotFoundException{
+    
+    public static Sala obterSala(int codigo) throws SQLException, ClassNotFoundException{
         
         Connection conn = null;
-        Statement st = null;
+        PreparedStatement stmt = null;
         Sala sala = null;
         try{
             conn = DatabaseLocator.getInstance().getConnection();
-            st = conn.createStatement();
-            ResultSet rs = st.executeQuery("select * from SALA where codigo = " + cod);
+            stmt = conn.prepareStatement("SELECT * FROM SALA WHERE CODIGO = ?");
+            stmt.setInt(1, codigo);
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()){
-                int codigo = Integer.parseInt(rs.getString("codigo"));
-                int numero = Integer.parseInt(rs.getString("numero"));
-                double preco = Double.parseDouble(rs.getString("preco"));
-                String nome = rs.getString("nome");
-                if(nome.equals("auditorio")){
-                    sala = new SalaAuditorio(codigo, numero, preco);
-                }else if(nome.equals("banquete")){
-                    sala = new SalaBanquete(codigo, numero, preco);
-                }else if(nome.equals("escolar")){
-                    sala = new SalaEscolar(codigo, numero, preco);
-                }else if(nome.equals("espinhadepeixe")){
-                    sala = new SalaEspinhaDePeixe(codigo, numero, preco);
-                }else if(nome.equals("formatoU")){
-                    sala = new SalaFormatoU(codigo, numero, preco);
-                }else if(nome.equals("reuniao")){
-                    sala = new SalaReuniao(codigo, numero, preco);
-                }else{
-                    sala = new SalaAuditorio(codigo, numero, preco);
-                }
+                
+                sala = instanciaSala(rs);
+                
             }
             return sala;
         }catch(SQLException e){
             throw e;
         }finally{
-            closeResources(conn, st);
+            closeResources(conn, stmt);
         }
     }
+    
     
     public void update(Sala sala) throws SQLException, ClassNotFoundException{
         
         Connection conn = null;
-        Statement st = null;
+        PreparedStatement stmt = null;
         
         try{
             conn = DatabaseLocator.getInstance().getConnection();
-            st = conn.createStatement();
-            st.execute("UPDATE SALA SET numero = " + sala.getNumero() + 
-                    ", preco = " + sala.getPreco() +
-                    ", nome = '" + sala.getNome() +"' where codigo = " + sala.getCodigo());
+            stmt = conn.prepareStatement("UPDATE SALA SET NUMERO = ?, PRECO = ?, NOME = ? WHERE CODIGO = ?");
+            parseAtributos(stmt, sala);
                     
-        
         }catch(SQLException e){
             throw e;
         }finally{
-            closeResources(conn, st);
+            closeResources(conn, stmt);
         }
     }
+    
     
     public static void closeResources (Connection conn, Statement st) throws SQLException{
         try{
             if(st!=null) st.close();
-            if(conn!=null) st.close();
+            if(conn!=null) conn.close();
         }catch(SQLException e){
             throw e;
         }
+    }
+    
+    
+    private static void parseAtributos(PreparedStatement stmt, Sala sala) throws SQLException{
+            stmt.setInt     (1, sala.getNumero()         );
+            stmt.setDouble  (2, sala.getPreco()          );
+            stmt.setString  (3, sala.getNome()           );
+        if(sala.getCodigo() != 0){
+            stmt.setInt     (4, sala.getCodigo()         );
+            stmt.execute();
+        }
+    }
+    
+    
+    private static Sala instanciaSala(ResultSet rs) throws SQLException{
+        Sala sala = SalaFactory.create      (rs.getString("nome"    ));
+        sala.setCodigo  (Integer.parseInt   (rs.getString("codigo"  )));
+        sala.setNumero  (Integer.parseInt   (rs.getString("numero"  )));
+        sala.setPreco   (Double.parseDouble (rs.getString("preco"   )));
+        
+        return sala;
     }
 }

@@ -9,26 +9,22 @@ package model;
  *
  * @author matheus
  */
-public class SalaEspinhaDePeixe extends Sala{
-    public SalaEspinhaDePeixe(){
-        this.nome = "espinhadepeixe";
+public class SalaEspinhaPeixe extends Sala{
+    public SalaEspinhaPeixe(){
         this.promocao = new PromocaoNv1();
     }
     
-    public SalaEspinhaDePeixe(int numero, double preco){
+    public SalaEspinhaPeixe(int codigo, int numero, double preco){
         super();
-        this.nome = "espinhadepeixe";
-        this.numero = numero;
-        this.preco = preco;
-    }
-    
-    public SalaEspinhaDePeixe(int codigo, int numero, double preco){
-        super();
-        this.nome = "espinhadepeixe";
         this.codigo = codigo;
         this.numero = numero;
         this.promocao = new PromocaoNv1();
         this.preco = preco;
         this.precoPromocao = calculaPreco();
+    }
+
+    @Override
+    public String getNome() {
+        return "EspinhaPeixe";
     }
 }

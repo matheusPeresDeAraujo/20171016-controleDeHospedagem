@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package action;
 
 import controller.Action;
@@ -16,10 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Sala;
 
-/**
- *
- * @author matheus
- */
 public class PrepararEditarSalaAction implements Action{
 
     @Override
@@ -31,9 +22,7 @@ public class PrepararEditarSalaAction implements Action{
             request.setAttribute("sala", sala);
             RequestDispatcher view = request.getRequestDispatcher("CRUDsala/SalaUpdate.jsp");
             view.forward(request, response);
-        } catch (ServletException ex) {
-        } catch (IOException ex) {
-        } catch (ClassNotFoundException ex) {
+        } catch (ServletException | IOException | ClassNotFoundException ex) {
         } catch (SQLException ex) {
             Logger.getLogger(PrepararEditarSalaAction.class.getName()).log(Level.SEVERE, null, ex);
         }

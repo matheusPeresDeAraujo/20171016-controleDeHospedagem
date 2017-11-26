@@ -15,12 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Sala;
-import model.SalaAuditorio;
-import model.SalaBanquete;
-import model.SalaEscolar;
-import model.SalaEspinhaDePeixe;
-import model.SalaFormatoU;
-import model.SalaReuniao;
+import model.SalaFactory;
 import persistence.SalaDao;
 
 /**
@@ -52,23 +47,9 @@ public class GravarSalaAction implements Action {
             String nome = request.getParameter("textNome");
             Double preco = Double.parseDouble(request.getParameter("textPreco"));
             try {
-                Sala sala = null;
-                if(nome.equals("auditorio")){
-                    sala = new SalaAuditorio(numero, preco);
-                }else if(nome.equals("banquete")){
-                    sala = new SalaBanquete(numero, preco);
-                }else if(nome.equals("escolar")){
-                    sala = new SalaEscolar(numero, preco);
-                }else if(nome.equals("espinhadepeixe")){
-                    sala = new SalaEspinhaDePeixe(numero, preco);
-                }else if(nome.equals("formatoU")){
-                    sala = new SalaFormatoU(numero, preco);
-                }else if(nome.equals("reuniao")){
-                    sala = new SalaReuniao(numero, preco);
-                }else{
-                    sala = new SalaAuditorio(numero, preco);
-                }
-
+                Sala sala = SalaFactory.create(nome); 
+                sala.setNumero(numero);
+                sala.setPreco(preco);
                 try {
                     SalaDao.getInstance().save(sala);
                     request.setAttribute("salas", Sala.obterSalas());

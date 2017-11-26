@@ -1,9 +1,3 @@
-<%-- 
-    Document   : login
-    Created on : 21/09/2017, 21:44:59
-    Author     : matheus
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -14,21 +8,11 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
         <meta name="description" content="">
         <meta name="author" content="">
-
-        <!-- Criar favicon.ico -->
-        <!--<link rel="icon" href="img/favicon.ico">-->
-
         <title> Controle de Hospedagem </title>
-
-        <!-- Bootstrap core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Custom styles for this template -->
         <link href="css/jumbotron-narrow.css" rel="stylesheet">
-
     </head>
 
     <body>
@@ -59,12 +43,12 @@
                                         <div class="form-group">
                                             <th><span>Nome </span></th>
                                             <select name="textNome" class="form-control">
-                                                <option name="textNome" value="auditorio" <c:if test="${sala.nome.equals('auditorio')}"> selected</c:if>>Sala Auditorio</option>
-                                                <option name="textNome" value="banquete">Sala Banquete</option>
-                                                <option name="textNome" value="escolar">Sala Escolar</option>
-                                                <option name="textNome" value="espinhadepeixe">Sala Espinha de Peixe</option>
-                                                <option name="textNome" value="formatoU">Sala Formato U</option>
-                                                <option name="textNome" value="reuniao">Sala Reuniao</option>
+                                                <option name="textNome" value="Auditorio" <c:if test="${sala.nome.equals('Auditorio')}"> selected</c:if>>Sala Auditorio</option>
+                                                <option name="textNome" value="Banquete" <c:if test="${sala.nome.equals('Banquete')}"> selected</c:if>>Sala Banquete</option>
+                                                <option name="textNome" value="Escolar" <c:if test="${sala.nome.equals('Escolar')}"> selected</c:if>>Sala Escolar</option>
+                                                <option name="textNome" value="EspinhaPeixe" <c:if test="${sala.nome.equals('EspinhaPeixe')}"> selected</c:if>>Sala Espinha de Peixe</option>
+                                                <option name="textNome" value="FormatoU" <c:if test="${sala.nome.equals('FormatoU')}"> selected</c:if>>Sala Formato U</option>
+                                                <option name="textNome" value="Reuniao" <c:if test="${sala.nome.equals('Reuniao')}"> selected</c:if>>Sala Reuniao</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -73,7 +57,7 @@
                                         </div>
                                         <div class="form-group">
                                             <th><span>Preco Apresentado</span></th>
-                                            <input class="form-control" placeholder="Preco" name="textPrecoApresentacao" type="text" value="<fmt:formatNumber type="number" maxFractionDigits = "2" value="${sala.precoA}" />" readonly="readonly"/>
+                                            <input class="form-control" placeholder="Preco" name="textPrecoApresentacao" type="text" value="<fmt:formatNumber type="number" maxFractionDigits = "2" value="${sala.precoPromocao}" />" readonly="readonly"/>
                                         </div>
                                         <input class="btn btn-lg btn-warning btn-block" type="submit" value="Alterar">
                                     </fieldset>

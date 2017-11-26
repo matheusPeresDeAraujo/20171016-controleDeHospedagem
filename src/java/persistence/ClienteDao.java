@@ -55,6 +55,7 @@ public class ClienteDao {
         }
     }
     
+    
     public static List<Cliente> obterClientes() throws SQLException, ClassNotFoundException{
         
         Connection conn = null;
@@ -76,6 +77,7 @@ public class ClienteDao {
             closeResources(conn, st);
         }
     }
+    
     
     public static Cliente obterCliente(int codigo) throws SQLException, ClassNotFoundException{
         
@@ -100,6 +102,7 @@ public class ClienteDao {
         }
     }
     
+    
     public void update(Cliente cliente) throws SQLException, ClassNotFoundException{
         
         Connection conn = null;
@@ -117,6 +120,7 @@ public class ClienteDao {
         }
     }
     
+    
     public static void closeResources (Connection conn, Statement st) throws SQLException{
         try{
             if(st!=null) st.close();
@@ -125,6 +129,7 @@ public class ClienteDao {
             throw e;
         }
     }
+    
     
     private static void parseAtributos(PreparedStatement stmt, Cliente cliente) throws SQLException{
             stmt.setString  (1, cliente.getNome()           );

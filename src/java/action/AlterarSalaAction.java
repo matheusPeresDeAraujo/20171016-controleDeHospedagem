@@ -17,7 +17,7 @@ import model.Sala;
 import model.SalaAuditorio;
 import model.SalaBanquete;
 import model.SalaEscolar;
-import model.SalaEspinhaDePeixe;
+import model.SalaEspinhaPeixe;
 import model.SalaFactory;
 import model.SalaFormatoU;
 import model.SalaReuniao;
