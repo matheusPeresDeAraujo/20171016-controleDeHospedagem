@@ -21,22 +21,18 @@ public class PainelAction implements Action{
         try {
             
             HttpSession session = request.getSession(true);
-            List<Quarto> quartos = (List<Quarto>) session.getAttribute("quartos");
-            if (quartos == null) {
-                quartos = new ArrayList<>();
-                for(Quarto quarto : Quarto.obterQuartos()){
-                    quartos.add(quarto);
-                }
-            }
-            String cont = "true";
-            for(Quarto quarto : quartos){
-                //Verifico se todos os quartos estão ocupados. Caso um estiver disponivel muda para false.
+            
+            String todosQuartosOcupados = "true";
+            for(Quarto quarto : Quarto.obterQuartos()){
                 if(quarto.getQuartoEstado().equals("disponivel")){
-                    cont = "false";
+                    todosQuartosOcupados = "false";
                 }
             }
-            session.setAttribute("quartos", quartos);
-            request.setAttribute("todosOcupados", cont);
+            request.setAttribute("todosQuartosOcupados", todosQuartosOcupados);
+            
+            List<Quarto> sessao = (List<Quarto>) session.getAttribute("sessao");
+            session.setAttribute("session", sessao);
+            request.setAttribute("quartos", Quarto.obterQuartos());
             RequestDispatcher view = request.getRequestDispatcher("/painel.jsp");
             view.forward(request, response);
             

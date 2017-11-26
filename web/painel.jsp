@@ -93,7 +93,7 @@
                                             </tr>
                                         </c:forEach>
                                     </table>
-                                    <div class="alert" role="alert"  <c:if test="${!todosOcupados.equals('true')}"> hidden</c:if>>
+                                    <div class="alert" role="alert"  <c:if test="${!todosQuartosOcupados.equals('true')}"> hidden</c:if>>
                                         <a type="button" href="FrontController?action=PrepararAvise" class="btn btn-danger col-lg-6 col-lg-offset-3">Avise-me quando surgir quarto disponivel!</a>
                                     </div>
                                         <!-- Para que serve -->
