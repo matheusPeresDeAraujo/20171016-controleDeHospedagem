@@ -1,9 +1,3 @@
-<%-- 
-    Document   : login
-    Created on : 21/09/2017, 21:44:59
-    Author     : matheus
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -14,21 +8,11 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
         <meta name="description" content="">
         <meta name="author" content="">
-        
-        <!-- Criar favicon.ico -->
-        <!--<link rel="icon" href="img/favicon.ico">-->
-
         <title> Controle de Hospedagem </title>
-
-        <!-- Bootstrap core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Custom styles for this template -->
         <link href="css/jumbotron-narrow.css" rel="stylesheet">
-
     </head>
 
     <body>

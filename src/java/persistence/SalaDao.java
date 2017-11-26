@@ -138,8 +138,8 @@ public class SalaDao {
             stmt.setString  (3, sala.getNome()           );
         if(sala.getCodigo() != 0){
             stmt.setInt     (4, sala.getCodigo()         );
-            stmt.execute();
         }
+            stmt.execute();
     }
     
     
