@@ -1,13 +1,10 @@
 package action;
 
 import controller.Action;
-import controller.ActionFactory;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Cliente;
@@ -29,21 +26,16 @@ public class AlterarClienteAction implements Action{
             request.setAttribute("resposta", "Alteração recusada");
             
         } else{
-            try{
-                Cliente cliente = new Cliente(
-                        request.getParameter("textIdade"), 
-                        request.getParameter("textNome"), 
-                        request.getParameter("textIdentificacao"), 
-                        request.getParameter("textTelefone"), 
-                        request.getParameter("textCelular"), 
-                        request.getParameter("textEmail"));
-                cliente.setCodigo(Integer.parseInt(request.getParameter("textCodigo")));
+            
+            try {
                 
-                ClienteDao.getInstance().update(cliente);
+                Cliente cliente = new Cliente();
+                cliente.updateCliente(request);
                 
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(AlterarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
         }
         
         BuscarClienteAction buscarCliente = new BuscarClienteAction();

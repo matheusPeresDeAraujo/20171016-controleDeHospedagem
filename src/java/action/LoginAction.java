@@ -25,33 +25,17 @@ public class LoginAction implements Action{
         
         if(username.equals("admin") && password.equals("admin")){ 
             
-            try {
-                
-                HttpSession session = request.getSession(true);
-                List<Quarto> quartos = null;
-                quartos = new ArrayList<>();
-                String cont = "true";
-                for(Quarto quarto : QuartoDao.getInstance().obterQuartos()){
-                    quartos.add(quarto);
-                    //Verifico se todos os quartos estão ocupados. Caso um estiver disponivel muda para false.
-                    if(quarto.getQuartoEstado().equals("disponivel")){
-                        cont = "false";
-                    }
-                }
-                session.setAttribute("quartos", quartos);
-                request.setAttribute("todosOcupados", cont);
-                RequestDispatcher view = request.getRequestDispatcher("/painel.jsp");
-                view.forward(request, response);
-                
-            } catch (SQLException | ClassNotFoundException | ServletException ex) {
-                Logger.getLogger(LoginAction.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            PainelAction painel = new PainelAction();
+            painel.execute(request, response);
+             
         }else{
             try {
-                String resposta = "Informe credenciais validas para o acesso!!!";
-                request.setAttribute("resposta", resposta);
+                
+                request.setAttribute("error", "true");
+                request.setAttribute("resposta", " Credênciais Incorretas!");
                 RequestDispatcher view = request.getRequestDispatcher("/login.jsp");
                 view.forward(request, response);
+                
             } catch (ServletException ex) {
                 Logger.getLogger(LoginAction.class.getName()).log(Level.SEVERE, null, ex);
             }

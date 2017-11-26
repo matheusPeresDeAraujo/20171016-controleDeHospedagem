@@ -1,20 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import javax.servlet.http.HttpServletRequest;
 import persistence.ClienteDao;
 
-/**
- *
- * @author matheus
- */
 public class Cliente implements Observer{
         
     private int codigo = 0;
@@ -42,15 +34,6 @@ public class Cliente implements Observer{
     public Cliente(int codigo, int idade, String nome, String identificacao, String telefone, String celular, String email) {
         this.codigo = codigo;
         this.idade = idade;
-        this.nome = nome;
-        this.identificacao = identificacao;
-        this.telefone = telefone;
-        this.celular = celular;
-        this.email = email;
-    }
-    
-    public Cliente(String idade, String nome, String identificacao, String telefone, String celular, String email){
-        this.idade = Integer.parseInt(idade);
         this.nome = nome;
         this.identificacao = identificacao;
         this.telefone = telefone;
@@ -120,6 +103,40 @@ public class Cliente implements Observer{
     
     public static Cliente obterCliente(int codigo) throws SQLException, ClassNotFoundException{
         return ClienteDao.obterCliente(codigo);
+    }
+    
+    public void saveCliente(HttpServletRequest request) throws SQLException, ClassNotFoundException{
+        
+        setParameter(request);
+        ClienteDao.getInstance().save(this);
+        
+    }
+    
+    public void updateCliente(HttpServletRequest request) throws SQLException, ClassNotFoundException{
+        
+        setParameter(request);
+        ClienteDao.getInstance().update(this);  
+        
+    }
+    
+    private void setParameter(HttpServletRequest request){
+        
+        if(Integer.parseInt(request.getParameter("textCodigo")) != 0){
+            this.codigo = Integer.parseInt(request.getParameter("textCodigo"));
+        }
+            this.idade = Integer.parseInt( request.getParameter("textIdade"));
+            this.nome =                    request.getParameter("textNome");
+            this.identificacao =           request.getParameter("textIdentificacao");
+            this.telefone =                request.getParameter("textTelefone");
+            this.celular =                 request.getParameter("textCelular");
+            this.email =                   request.getParameter("textEmail");
+        
+    }
+    
+    public void dropCliente(HttpServletRequest request) throws SQLException, ClassNotFoundException{
+        
+        ClienteDao.getInstance().drop(Integer.parseInt(request.getParameter("textCodigo")));
+    
     }
 
     public void setQuarto(Observable quarto){

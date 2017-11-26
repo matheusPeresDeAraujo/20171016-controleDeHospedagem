@@ -17,14 +17,11 @@ public class PrepararEditarQuartoAction implements Action{
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
            int codigo = Integer.parseInt(request.getParameter("codigo"));
-            Quarto quartoE;
-            quartoE = Quarto.obterQuarto(codigo);
-            request.setAttribute("quarto", quartoE);
+            Quarto quarto = Quarto.obterQuarto(codigo);
+            request.setAttribute("quarto", quarto);
             RequestDispatcher view = request.getRequestDispatcher("CRUDquarto/QuartoUpdate.jsp");
             view.forward(request, response);
-        } catch (ServletException ex) {
-        } catch (IOException ex) {
-        } catch (ClassNotFoundException ex) {
+        } catch (ServletException | IOException | ClassNotFoundException ex) {
         } catch (SQLException ex) {
             Logger.getLogger(PrepararEditarQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
         }

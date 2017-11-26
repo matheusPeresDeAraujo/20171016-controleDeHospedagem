@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Cliente;
 import persistence.ClienteDao;
 
 public class ApagarClienteAction implements Action{
@@ -15,12 +16,13 @@ public class ApagarClienteAction implements Action{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         
-        int codigo = Integer.parseInt(request.getParameter("textCodigo"));
-        
-        if(codigo != 0){
-            try{
-                ClienteDao.getInstance().drop(codigo);
-            }catch(ClassNotFoundException | SQLException ex){
+        if(Integer.parseInt(request.getParameter("textCodigo")) != 0){
+            try {
+                
+                Cliente cliente = new Cliente();
+                cliente.dropCliente(request);
+                
+            } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(ApagarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

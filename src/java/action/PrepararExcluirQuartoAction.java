@@ -17,16 +17,13 @@ public class PrepararExcluirQuartoAction implements Action{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         
-        int codigo = Integer.parseInt(request.getParameter("codigo"));
-        Quarto quarto = null;
         try {
-            quarto = Quarto.obterQuarto(codigo);
+            int codigo = Integer.parseInt(request.getParameter("codigo"));
+            Quarto quarto = Quarto.obterQuarto(codigo);
             request.setAttribute("quarto", quarto);
             RequestDispatcher view = request.getRequestDispatcher("CRUDquarto/QuartoDelete.jsp");
             view.forward(request, response);
-        } catch (ServletException ex) {
-        } catch (IOException ex) {
-        } catch (ClassNotFoundException ex) {
+        } catch (ServletException | IOException | ClassNotFoundException ex) {
         } catch (SQLException ex) {
             Logger.getLogger(PrepararExcluirQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
         }

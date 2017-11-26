@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Quarto;
-import persistence.QuartoDao;
 
 public class PainelAction implements Action{
 
@@ -25,7 +24,7 @@ public class PainelAction implements Action{
             List<Quarto> quartos = (List<Quarto>) session.getAttribute("quartos");
             if (quartos == null) {
                 quartos = new ArrayList<>();
-                for(Quarto quarto : QuartoDao.getInstance().obterQuartos()){
+                for(Quarto quarto : Quarto.obterQuartos()){
                     quartos.add(quarto);
                 }
             }

@@ -30,7 +30,7 @@
                             </div>
                             <div class="panel-body">
                             <!-- Verifico se após tentativa e somente após tentativa houve retorno de erro -->    
-                            <div class="alert alert-danger" role="alert" <c:if test="${!resposta.equals('Informe credenciais validas para o acesso!!!')}"> hidden</c:if>>
+                            <div class="alert alert-danger" role="alert" <c:if test="${!error.equals('true')}"> hidden</c:if>>
                                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                                 <span class="sr-only">Erro:</span>
                                 ${resposta}

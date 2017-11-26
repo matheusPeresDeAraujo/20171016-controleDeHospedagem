@@ -17,7 +17,6 @@ public class BuscarQuartoAction implements Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            // Replico a sessão de quartos.
             HttpSession session = request.getSession(true);
             List<Quarto> quartos = (List<Quarto>) session.getAttribute("quartos");
             session.setAttribute("quartos", quartos);

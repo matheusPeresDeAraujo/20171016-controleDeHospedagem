@@ -11,9 +11,6 @@ import model.Cliente;
 import model.Quarto;
 import model.QuartoEstadoFactory;
 import model.QuartoFactory;
-import model.QuartoTipoCasal;
-import model.QuartoTipoDuploSolteiro;
-import model.QuartoTipoSolteiro;
 
 public class QuartoDao {
     

@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Cliente;
-import persistence.ClienteDao;
 
 public class GravarClienteAction implements Action{
 
@@ -26,19 +25,13 @@ public class GravarClienteAction implements Action{
                 
         } else{
             try {
-                Cliente cliente = new Cliente(
-                    request.getParameter("textIdade"), 
-                    request.getParameter("textNome"), 
-                    request.getParameter("textIdentificacao"), 
-                    request.getParameter("textTelefone"), 
-                    request.getParameter("textCelular"), 
-                    request.getParameter("textEmail"));
-
-                ClienteDao.getInstance().save(cliente);
+                
+                Cliente cliente = new Cliente();
+                cliente.saveCliente(request);
                 
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(GravarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
-            }    
+            }
         }
         
         BuscarClienteAction buscarCliente = new BuscarClienteAction();
