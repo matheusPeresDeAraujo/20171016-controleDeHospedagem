@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import model.Aluga;
 import model.Cliente;
 import model.Quarto;
+import model.QuartoEstadoFactory;
 import persistence.AlugaDao;
 import persistence.ClienteDao;
 import persistence.QuartoDao;
@@ -49,10 +50,10 @@ public class DesocuparQuartoAction implements Action{
                     q.setEstadosSalvos(Quarto.obterQuarto(codQuarto));
                     //Realizo a mudança
                     quarto.disponivel();
-                    quarto.setEstado(quarto.getQuartoEstado());
+                    quarto.setQuartoEstado(QuartoEstadoFactory.create(quarto.getQuartoEstado()));
                     QuartoDao.getInstance().update(quarto);
                     //Aplico modificaçao na sessão.
-                    q.setEstado(quarto.getEstado());
+                    q.setQuartoEstado(QuartoEstadoFactory.create(quarto.getQuartoEstado()));
                     
                     break;
                 }
@@ -60,11 +61,11 @@ public class DesocuparQuartoAction implements Action{
             session.setAttribute("quartos", quartos);
             
             String cont = "true";
-            for(int i = 0; i < quartos.size(); i++){
-                if(quartos.get(i).getEstado().equals("disponivel")){
-                    cont = "false";
-                }
-            }
+//            for(int i = 0; i < quartos.size(); i++){
+//                if(quartos.get(i).getEstado().equals("disponivel")){
+//                    cont = "false";
+//                }
+//            }
             
             List<Integer> interessados = QuartoDao.getInstance().interessados(quarto);
             String resp = "";

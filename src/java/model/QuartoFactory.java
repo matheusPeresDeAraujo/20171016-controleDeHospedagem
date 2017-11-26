@@ -3,7 +3,7 @@ package model;
 public class QuartoFactory {
     public static Quarto create(String tipo){
         Quarto quartoObject =  null;
-        String nomeClasse = "model.Quarto"+tipo;
+        String nomeClasse = "model.QuartoTipo"+tipo;
         Class classe = null;
         Object objeto = null;
         try{

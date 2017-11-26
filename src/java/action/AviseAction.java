@@ -26,11 +26,11 @@ public class AviseAction implements Action{
             }
             
             String cont = "true";
-            for(int i = 0; i < quartos.size(); i++){
-                if(quartos.get(i).getEstado().equals("disponivel")){
-                    cont = "false";
-                }
-            }
+//            for(int i = 0; i < quartos.size(); i++){
+//                if(quartos.get(i).getEstado().equals("disponivel")){
+//                    cont = "false";
+//                }
+//            }
             request.setAttribute("todosOcupados", cont);
             request.setAttribute("quartos", Quarto.obterQuartos());
             RequestDispatcher view = 

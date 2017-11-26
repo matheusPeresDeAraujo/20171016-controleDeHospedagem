@@ -36,9 +36,9 @@
                                         </div>
                                         <div class="form-group">
                                             <select name="textTipo" class="form-control">
-                                                <option name="textTipo" value="single room">Single Room</option>
-                                                <option name="textTipo" value="twin room">Twin Room</option>
-                                                <option name="textTipo" value="double room">Double Room</option>
+                                                <option name="textTipo" value="Solteiro">Solteiro</option>
+                                                <option name="textTipo" value="DuploSolteiro">Duplo Solteiro</option>
+                                                <option name="textTipo" value="Casal">Casal</option>
                                             </select>
                                         </div>
                                         <div class="form-group">

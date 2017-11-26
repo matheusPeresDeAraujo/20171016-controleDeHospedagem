@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Quarto;
+import model.QuartoEstadoFactory;
 import persistence.QuartoDao;
 
 public class AlterarQuartoAction implements Action{
@@ -73,10 +74,10 @@ public class AlterarQuartoAction implements Action{
 
                               q.setEstadosSalvos(Quarto.obterQuarto(codigo));
                               //Alteração em banco
-                              quarto.setEstado(quarto.getQuartoEstado());
+                              quarto.setQuartoEstado(QuartoEstadoFactory.create(quarto.getQuartoEstado()));
                               QuartoDao.getInstance().update(quarto);
                               //Aplico modificaçao na sessão.  
-                              q.setEstado(quarto.getEstado());
+                              q.setQuartoEstado(QuartoEstadoFactory.create(quarto.getQuartoEstado()));
                               break;
                         }
                     }

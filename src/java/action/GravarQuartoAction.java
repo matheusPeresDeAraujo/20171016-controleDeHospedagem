@@ -12,9 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Quarto;
-import model.QuartoCasal;
-import model.QuartoDuploSolteiro;
-import model.QuartoSolteiro;
+import model.QuartoEstadoFactory;
+import model.QuartoFactory;
 import persistence.QuartoDao;
 
 public class GravarQuartoAction implements Action{
@@ -40,14 +39,10 @@ public class GravarQuartoAction implements Action{
             String vista = request.getParameter("textVista");
             String estado = request.getParameter("textEstado");
             try{
-                Quarto quarto = null;
-                if(tipo.equals("single room")){
-                    quarto = new QuartoSolteiro(numero, vista, estado);
-                }else if(tipo.equals("twin room")){
-                    quarto = new QuartoDuploSolteiro(numero, vista, estado);
-                }else if(tipo.equals("double room")){
-                    quarto = new QuartoCasal(numero, vista, estado);
-                } 
+                Quarto quarto = QuartoFactory.create(tipo);
+                quarto.setVista(vista);
+                quarto.setQuartoEstado(QuartoEstadoFactory.create(estado));
+                quarto.setNumero(numero);
                 try{
                     //Adicionando no banco
                     QuartoDao.getInstance().save(quarto);
@@ -60,9 +55,7 @@ public class GravarQuartoAction implements Action{
                     
                     RequestDispatcher view = request.getRequestDispatcher("/painel.jsp");
                     view.forward(request, response);
-                }catch(ClassNotFoundException ex){
-                    Logger.getLogger(GravarQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ServletException ex) {
+                }catch(ClassNotFoundException | ServletException ex){
                     Logger.getLogger(GravarQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
                 }  
             }catch(SQLException ex){

@@ -43,9 +43,9 @@
                                         <div class="form-group">
                                             <th><span>Tipo </span></th>
                                             <select name="textTipo" class="form-control">
-                                                <option name="textTipo" value="single room" <c:if test="${quarto.tipo.equals('single room')}"> selected</c:if>>Single Room</option>
-                                                <option name="textTipo" value="twin room" <c:if test="${quarto.tipo.equals('twin room')}"> selected</c:if>>Twin Room</option>
-                                                <option name="textTipo" value="double room" <c:if test="${quarto.tipo.equals('double room')}"> selected</c:if>>Double Room</option>
+                                                <option name="textTipo" value="Solteiro" <c:if test="${quarto.tipo.equals('Solteiro')}"> selected</c:if>>Solteiro</option>
+                                                <option name="textTipo" value="DuploSolteiro" <c:if test="${quarto.tipo.equals('DuploSolteiro')}"> selected</c:if>>Duplo Solteiro</option>
+                                                <option name="textTipo" value="Casal" <c:if test="${quarto.tipo.equals('Casal')}"> selected</c:if>>Casal</option>
                                             </select>
                                         </div>
                                         <div class="form-group">

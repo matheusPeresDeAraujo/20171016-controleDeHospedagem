@@ -20,13 +20,7 @@ public class QuartoEstadoDisponivel implements QuartoEstado{
 
     @Override
     public String getEstado(Quarto quarto) {
-        quarto.setEstado("disponivel");
-        return "disponivel";
-    }
-
-    @Override
-    public String toString() {
-        return "QuartoDisponivel";
+        return "Disponivel";
     }
     
     

@@ -3,9 +3,7 @@ package action;
 import controller.Action;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -16,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import model.Aluga;
 import model.Cliente;
 import model.Quarto;
+import model.QuartoEstadoFactory;
 import persistence.AlugaDao;
 import persistence.QuartoDao;
 
@@ -49,10 +48,10 @@ public class OcuparQuartoAction implements Action{
                     q.setEstadosSalvos(Quarto.obterQuarto(codQuarto));
                     //Realizo a mudança
                     quarto.ocupado();
-                    quarto.setEstado(quarto.getQuartoEstado());
+                    quarto.setQuartoEstado(QuartoEstadoFactory.create(quarto.getQuartoEstado()));
                     QuartoDao.getInstance().update(quarto);
                     //Aplico modificaçao na sessão.
-                    q.setEstado(quarto.getEstado());
+                    q.setQuartoEstado(QuartoEstadoFactory.create(quarto.getQuartoEstado()));
                     
                     break;
                 }
@@ -61,7 +60,7 @@ public class OcuparQuartoAction implements Action{
             
             String cont = "true";
             for(Quarto qp : quartos){
-                    if(qp.getEstado().equals("disponivel")){
+                    if(qp.getQuartoEstado().equals("disponivel")){
                     cont = "false";
                 }
             }

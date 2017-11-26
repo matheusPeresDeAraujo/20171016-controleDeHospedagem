@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Aluga;
 import model.Cliente;
 import model.Quarto;
+import model.QuartoEstadoFactory;
 import persistence.AlugaDao;
 import persistence.QuartoDao;
 
@@ -31,16 +32,16 @@ public class DisponivelQuartoAction implements Action{
             
             AlugaDao.getInstance().save(aluga);
             quarto.disponivel();
-            quarto.setEstado(quarto.getQuartoEstado());
+            quarto.setQuartoEstado(QuartoEstadoFactory.create(quarto.getQuartoEstado()));
             QuartoDao.getInstance().update(quarto);
             
             List<Quarto> quartos = Quarto.obterQuartos();
             int cont = 1;
-            for(int i = 0; i < quartos.size(); i++){
-                if(quartos.get(i).getEstado().equals("disponivel")){
-                    cont = 0;
-                }
-            }
+//            for(int i = 0; i < quartos.size(); i++){
+//                if(quartos.get(i).getEstado().equals("disponivel")){
+//                    cont = 0;
+//                }
+//            }
             request.setAttribute("todosOcupados", cont);
             request.setAttribute("quartos", Quarto.obterQuartos());
             RequestDispatcher view = 

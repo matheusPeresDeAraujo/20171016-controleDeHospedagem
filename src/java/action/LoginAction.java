@@ -20,32 +20,10 @@ public class LoginAction implements Action{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         
-        //Capturando credenciais de acesso do usuário
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         
-        /*
-            Testo as credênciais com as possibilidades atuais:
-            Usuário Administrador:
-                username == admin
-                password == admin
-        
-            Usuário Comum 01:
-                username == user01
-                password == user01
-        
-            Usuário Comum 02:
-                username == user02
-                password == user02
-        
-            Usuário Comum 03:
-                username == user03
-                password == user03
-        */
-        
         if(username.equals("admin") && password.equals("admin")){ 
-            
-            //Para usuário admnistrador carrego o painel pricipal.
             
             try {
                 
@@ -56,7 +34,7 @@ public class LoginAction implements Action{
                 for(Quarto quarto : QuartoDao.getInstance().obterQuartos()){
                     quartos.add(quarto);
                     //Verifico se todos os quartos estão ocupados. Caso um estiver disponivel muda para false.
-                    if(quarto.getEstado().equals("disponivel")){
+                    if(quarto.getQuartoEstado().equals("disponivel")){
                         cont = "false";
                     }
                 }
@@ -65,23 +43,11 @@ public class LoginAction implements Action{
                 RequestDispatcher view = request.getRequestDispatcher("/painel.jsp");
                 view.forward(request, response);
                 
-            } catch (SQLException ex) {
-                Logger.getLogger(LoginAction.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(LoginAction.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ServletException ex) {
+            } catch (SQLException | ClassNotFoundException | ServletException ex) {
                 Logger.getLogger(LoginAction.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else if(   (username.equals("user01") && password.equals("user01")) || 
-                    (username.equals("user02") && password.equals("user02")) ||
-                    (username.equals("user03") && password.equals("user03")) ){
-            //Para outros usuários registrados inicio a tela de busca
-            
-            //++++PENDENTE++++
-            
         }else{
             try {
-                //Não é um usuário logado. Retorno erro
                 String resposta = "Informe credenciais validas para o acesso!!!";
                 request.setAttribute("resposta", resposta);
                 RequestDispatcher view = request.getRequestDispatcher("/login.jsp");

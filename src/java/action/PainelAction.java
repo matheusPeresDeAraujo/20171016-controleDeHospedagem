@@ -32,7 +32,7 @@ public class PainelAction implements Action{
             String cont = "true";
             for(Quarto quarto : quartos){
                 //Verifico se todos os quartos estão ocupados. Caso um estiver disponivel muda para false.
-                if(quarto.getEstado().equals("disponivel")){
+                if(quarto.getQuartoEstado().equals("disponivel")){
                     cont = "false";
                 }
             }
@@ -41,11 +41,7 @@ public class PainelAction implements Action{
             RequestDispatcher view = request.getRequestDispatcher("/painel.jsp");
             view.forward(request, response);
             
-        } catch (ServletException ex) {
-            Logger.getLogger(PainelAction.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(PainelAction.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (ServletException | SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PainelAction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

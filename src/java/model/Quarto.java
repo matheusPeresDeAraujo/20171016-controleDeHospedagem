@@ -19,39 +19,20 @@ public abstract class Quarto extends Observable{
         this.posicao = posicao;
     }
     
-    
     protected int codigo;
     protected QuartoEstado quartoEstado;
-    protected String estado;
     protected int numero;
     protected String vista;
-    
-    protected String tipo;
-    protected double preco;
-    protected double tamanho;
-    protected int cama;
-    protected int banheiro;
-    protected boolean frigobar;
-    protected boolean tv;
-    protected boolean computador;
 
-    public Quarto(int codigo, String estado, int numero, String vista, String tipo, double preco, double tamanho, int cama, int banheiro, boolean frigobar, boolean tv, boolean computador) {
-        this.codigo = codigo;
-        this.estado = estado;
-        this.numero = numero;
-        this.vista = vista;
-        this.tipo = tipo;
-        this.preco = preco;
-        this.tamanho = tamanho;
-        this.cama = cama;
-        this.banheiro = banheiro;
-        this.frigobar = frigobar;
-        this.tv = tv;
-        this.computador = computador;
-    }
-    
+
     public Quarto(){
         
+    }    
+    
+    public Quarto(int codigo, int numero, String vista) {
+        this.codigo = codigo;
+        this.numero = numero;
+        this.vista = vista;
     }
     
     
@@ -93,14 +74,6 @@ public abstract class Quarto extends Observable{
             setChanged();
             notifyObservers();
         }
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
     }
 
     public int getCodigo() {
@@ -159,6 +132,7 @@ public abstract class Quarto extends Observable{
         return new QuartoMemento(quartoEstado);
     }
     
+    @Override
     public void notifyObservers(){
         for(Observer ob : observers){
             System.out.println("Notificando observers");

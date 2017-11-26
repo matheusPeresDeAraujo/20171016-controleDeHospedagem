@@ -21,13 +21,7 @@ public class QuartoEstadoOcupado implements QuartoEstado{
 
     @Override
     public String getEstado(Quarto quarto) {
-        quarto.setEstado("ocupado");
-        return "ocupado";
-    }
-
-    @Override
-    public String toString() {
-        return "QuartoOcupado";
+        return "Ocupado";
     }
     
 }

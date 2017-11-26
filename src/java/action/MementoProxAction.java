@@ -35,7 +35,7 @@ public class MementoProxAction implements Action{
                         q.setPosicao(q.getPosicao()+1);
                         
                         //Mudo o estado atual para o que esta nesta posição.
-                        q.setEstado(q.getEstadosSalvos().get(q.getPosicao()+1).getEstado());//Verificar instrução."""
+//                        q.setEstado(q.getEstadosSalvos().get(q.getPosicao()+1).getQuartoEstado());//Verificar instrução."""
                         QuartoDao.getInstance().update(q);
 
                         //Verifico na lista a posição atual de estado -1 e retorno
@@ -56,7 +56,7 @@ public class MementoProxAction implements Action{
                     String cont = "true";
                     for(Quarto quarto : quartos){
                         //Verifico se todos os quartos estão ocupados. Caso um estiver disponivel muda para false.
-                        if(quarto.getEstado().equals("disponivel")){
+                        if(quarto.getQuartoEstado().equals("disponivel")){
                             cont = "false";
                         }
                     }
@@ -68,11 +68,7 @@ public class MementoProxAction implements Action{
                     break;
                 }
             }
-        } catch (ServletException ex) {
-            Logger.getLogger(MementoProxAction.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(MementoProxAction.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (ServletException | SQLException | ClassNotFoundException ex) {
             Logger.getLogger(MementoProxAction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
