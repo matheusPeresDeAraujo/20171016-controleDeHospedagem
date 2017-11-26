@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package persistence;
 
 import java.sql.Connection;
@@ -14,10 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Cliente;
 
-/**
- *
- * @author matheus
- */
 public class ClienteDao {
     
     
@@ -68,15 +59,14 @@ public class ClienteDao {
         
         Connection conn = null;
         Statement st = null;
-        List<Cliente> busca = null;
+        List<Cliente> clientes = new ArrayList<>();
         try{
             conn = DatabaseLocator.getInstance().getConnection();
             st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM CLIENTE");
-            busca = new ArrayList<>();
             while (rs.next()){
                
-                busca.add(instanciaCliente(
+                clientes.add(instanciaCliente(
                                             rs.getString("CODIGO"       ),
                                             rs.getString("NOME"         ),
                                             rs.getString("IDADE"        ),
@@ -87,7 +77,7 @@ public class ClienteDao {
                                             ));
                 
             }
-            return busca;
+            return clientes;
         }catch(SQLException e){
             throw e;
         }finally{
@@ -146,15 +136,6 @@ public class ClienteDao {
     public static void closeResources (Connection conn, Statement st) throws SQLException{
         try{
             if(st!=null) st.close();
-            if(conn!=null) conn.close();
-        }catch(SQLException e){
-            throw e;
-        }
-    }
-    
-    public static void closeResources (Connection conn, PreparedStatement stmt) throws SQLException{
-        try{
-            if(stmt!=null) stmt.close();
             if(conn!=null) conn.close();
         }catch(SQLException e){
             throw e;
