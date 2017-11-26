@@ -24,7 +24,7 @@ public class ClienteDao {
         
         try{
             conn = DatabaseLocator.getInstance().getConnection();
-            stmt = conn.prepareStatement("INSERTE INTO CLIENTE "
+            stmt = conn.prepareStatement("INSERT INTO CLIENTE "
                     + "(NOME, IDADE, IDENTIFICACAO, TELEFONE, CELULAR, EMAIL) "
                     + "VALUES (?,?,?,?,?,?)");
             parseAtributos(stmt, cliente);
@@ -64,19 +64,11 @@ public class ClienteDao {
             conn = DatabaseLocator.getInstance().getConnection();
             st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM CLIENTE");
+            
             while (rs.next()){
-               
-                clientes.add(instanciaCliente(
-                                            rs.getString("CODIGO"       ),
-                                            rs.getString("NOME"         ),
-                                            rs.getString("IDADE"        ),
-                                            rs.getString("IDENTIFICACAO"),
-                                            rs.getString("TELEFONE"     ),
-                                            rs.getString("CELULAR"      ),
-                                            rs.getString("EMAIL"        )
-                                            ));
-                
+                clientes.add(instanciaCliente(rs));
             }
+            
             return clientes;
         }catch(SQLException e){
             throw e;
@@ -95,19 +87,11 @@ public class ClienteDao {
             stmt = conn.prepareStatement("SELECT * FROM CLIENTE WHERE CODIGO = ?");
             stmt.setInt(1, codigo);
             ResultSet rs = stmt.executeQuery();
+            
             while (rs.next()){
-               
-                cliente = instanciaCliente(
-                                            rs.getString("CODIGO"       ),
-                                            rs.getString("NOME"         ),
-                                            rs.getString("IDADE"        ),
-                                            rs.getString("IDENTIFICACAO"),
-                                            rs.getString("TELEFONE"     ),
-                                            rs.getString("CELULAR"      ),
-                                            rs.getString("EMAIL"        )
-                                            );
-                
+                cliente = instanciaCliente(rs);
             }
+            
             return cliente;
         }catch(SQLException e){
             throw e;
@@ -142,14 +126,6 @@ public class ClienteDao {
         }
     }
     
-    private static Cliente instanciaCliente(String codigo, String nome, String idade, String identificacao, String telefone, String celular, String email) throws SQLException{
-        
-        int codigoCliente = Integer.parseInt(codigo);
-        int idadeCliente = Integer.parseInt(idade);
-        
-        return new Cliente(codigoCliente, idadeCliente, nome, identificacao, telefone, celular, email);
-    }
-    
     private static void parseAtributos(PreparedStatement stmt, Cliente cliente) throws SQLException{
             stmt.setString  (1, cliente.getNome()           );
             stmt.setInt     (2, cliente.getIdade()          );
@@ -161,5 +137,20 @@ public class ClienteDao {
             stmt.setInt     (7, cliente.getCodigo()         );
         }
             stmt.execute();
+    }
+    
+    
+    private static Cliente instanciaCliente(ResultSet rs) throws SQLException{
+        
+        Cliente cliente = new Cliente();
+        cliente.setCodigo       (Integer.parseInt(  rs.getString("CODIGO"       )));
+        cliente.setNome         (                   rs.getString("NOME"         ));
+        cliente.setIdade        (Integer.parseInt(  rs.getString("IDADE"        )));
+        cliente.setIdentificacao(                   rs.getString("IDENTIFICACAO"));
+        cliente.setTelefone     (                   rs.getString("TELEFONE"     ));
+        cliente.setCelular      (                   rs.getString("CELULAR"      ));
+        cliente.setEmail        (                   rs.getString("EMAIL"        ));
+        
+        return cliente;
     }
 }
