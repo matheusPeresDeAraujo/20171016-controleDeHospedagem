@@ -1,7 +1,5 @@
 package model;
 
-import controller.Action;
-
 public class SalaFactory {
     public static Sala create(String nome){
         Sala salaObject =  null;
