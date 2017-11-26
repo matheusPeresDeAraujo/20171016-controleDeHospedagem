@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package persistence;
 
 import java.sql.Connection;
@@ -11,19 +6,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import model.Aluga;
 
-/**
- *
- * @author matheus
- */
 public class AlugaDao {
     
+    
     private static AlugaDao instance = new AlugaDao();
-    
     private AlugaDao(){}
+    public static AlugaDao getInstance(){return instance;}
     
-    public static AlugaDao getInstance(){
-        return instance;
-    }
     
     public void save(Aluga aluga) throws SQLException, ClassNotFoundException{
         
@@ -45,6 +34,7 @@ public class AlugaDao {
         }
     }
     
+    
     public int cliente(int codigo) throws SQLException, ClassNotFoundException{
         
         Connection conn = null;
@@ -64,6 +54,7 @@ public class AlugaDao {
             closeResources(conn, st);
         }
     }
+    
     
     public static void closeResources (Connection conn, Statement st) throws SQLException{
         try{

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package persistence;
 
 import java.sql.Connection;
@@ -11,13 +6,11 @@ import java.sql.SQLException;
 
 public class DatabaseLocator {
     
+    
     private static DatabaseLocator instance = new DatabaseLocator();
-    
     private DatabaseLocator(){}
+    public static DatabaseLocator getInstance(){return instance;}
     
-    public static DatabaseLocator getInstance(){
-        return instance;
-    }
     
     public Connection getConnection() throws SQLException, ClassNotFoundException {
         
