@@ -133,9 +133,9 @@ public class Cliente implements Observer{
         
     }
     
-    public void dropCliente(HttpServletRequest request) throws SQLException, ClassNotFoundException{
+    public static void dropCliente(int codigo) throws SQLException, ClassNotFoundException{
         
-        ClienteDao.getInstance().drop(Integer.parseInt(request.getParameter("textCodigo")));
+        ClienteDao.getInstance().drop(codigo);
     
     }
 

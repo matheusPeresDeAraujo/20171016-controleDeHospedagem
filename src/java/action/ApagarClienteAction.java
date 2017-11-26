@@ -1,7 +1,6 @@
 package action;
 
 import controller.Action;
-import controller.ActionFactory;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -9,7 +8,6 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Cliente;
-import persistence.ClienteDao;
 
 public class ApagarClienteAction implements Action{
 
@@ -19,8 +17,7 @@ public class ApagarClienteAction implements Action{
         if(Integer.parseInt(request.getParameter("textCodigo")) != 0){
             try {
                 
-                Cliente cliente = new Cliente();
-                cliente.dropCliente(request);
+                Cliente.dropCliente(Integer.parseInt(request.getParameter("textCodigo")));
                 
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(ApagarClienteAction.class.getName()).log(Level.SEVERE, null, ex);

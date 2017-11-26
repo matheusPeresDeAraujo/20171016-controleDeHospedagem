@@ -2,6 +2,7 @@ package action;
 
 import controller.Action;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,12 +19,13 @@ public class BuscarQuartoAction implements Action {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             HttpSession session = request.getSession(true);
-            List<Quarto> quartos = (List<Quarto>) session.getAttribute("quartos");
-            session.setAttribute("quartos", quartos);
+            List<Quarto> sessao = (List<Quarto>) session.getAttribute("sessao");
+            session.setAttribute("session", sessao);
+            request.setAttribute("quartos", Quarto.obterQuartos());
             RequestDispatcher view = request.getRequestDispatcher("CRUDquarto/Quarto.jsp");
             view.forward(request, response);
             
-        } catch (ServletException ex) {
+        } catch (ServletException | SQLException | ClassNotFoundException ex) {
             Logger.getLogger(BuscarQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

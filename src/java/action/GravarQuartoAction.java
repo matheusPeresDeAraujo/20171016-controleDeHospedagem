@@ -6,63 +6,36 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import model.Quarto;
-import model.QuartoEstadoFactory;
 import model.QuartoFactory;
-import persistence.QuartoDao;
 
 public class GravarQuartoAction implements Action{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         
-        if(request.getParameter("textNumero").equals("") || request.getParameter("textTipo").equals("") || request.getParameter("textVista").equals("") || request.getParameter("textEstado").equals("")){
-            String resposta = "Alteração recusada";
-            HttpSession session = request.getSession(true);
-            List<Quarto> quartos = (List<Quarto>) session.getAttribute("quartos");
-            session.setAttribute("quartos", quartos);
-            request.setAttribute("resposta", resposta);
-            RequestDispatcher view = request.getRequestDispatcher("CRUDquarto/Quarto.jsp");
-            try {
-                view.forward(request, response);
-            } catch (ServletException ex) {
-                Logger.getLogger(AlterarQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        if(     request.getParameter("textNumero").equals("") || 
+                request.getParameter("textTipo").equals("") || 
+                request.getParameter("textVista").equals("") || 
+                request.getParameter("textEstado").equals("")){
+            
+            request.setAttribute("resposta", "Alteração recusada");
+            
         } else{
-            int numero = Integer.parseInt(request.getParameter("textNumero"));
-            String tipo = request.getParameter("textTipo");
-            String vista = request.getParameter("textVista");
-            String estado = request.getParameter("textEstado");
-            try{
-                Quarto quarto = QuartoFactory.create(tipo);
-                quarto.setVista(vista);
-                quarto.setQuartoEstado(QuartoEstadoFactory.create(estado));
-                quarto.setNumero(numero);
-                try{
-                    //Adicionando no banco
-                    QuartoDao.getInstance().save(quarto);
-                    
-                    //Adicionando na sessão
-                    HttpSession session = request.getSession(true);
-                    List<Quarto> quartos = QuartoDao.getInstance().obterQuartos();;
-                   
-                    session.setAttribute("quartos", quartos);
-                    
-                    RequestDispatcher view = request.getRequestDispatcher("/painel.jsp");
-                    view.forward(request, response);
-                }catch(ClassNotFoundException | ServletException ex){
-                    Logger.getLogger(GravarQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
-                }  
-            }catch(SQLException ex){
-                response.sendRedirect("PaginaErro.jsp");
-                ex.printStackTrace();
+            try {
+                
+                Quarto quarto = QuartoFactory.create(request.getParameter("textTipo"));
+                quarto.saveQuarto(request);
+                
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(GravarQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        BuscarQuartoAction buscarQuarto = new BuscarQuartoAction();
+        buscarQuarto.execute(request, response);
     }
     
 }

@@ -87,7 +87,7 @@
                                                 <td><c:out value="${quarto.codigo}" /></td>
                                                 <td><c:out value="${quarto.numero}" /></td>
                                                 <td><c:out value="${quarto.tipo}" /></td>
-                                                <td><c:out value="${quarto.estado}" /></td>
+                                                <td><c:out value="${quarto.quartoEstado}" /></td>
                                                 <td><a class="btn btn-success btn-xs" href="FrontController?action=PrepararEditarQuarto&codigo=<c:out value="${quarto.codigo}"/>">Editar</a></td>
                                                 <td><a class="btn btn-danger btn-xs" href="FrontController?action=PrepararExcluirQuarto&codigo=<c:out value="${quarto.codigo}"/>">Excluir</a></td>
                                                 <td>

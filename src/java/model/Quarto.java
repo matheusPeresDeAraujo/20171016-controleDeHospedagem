@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import javax.servlet.http.HttpServletRequest;
 import persistence.QuartoDao;
 
 public abstract class Quarto extends Observable{
@@ -19,7 +20,7 @@ public abstract class Quarto extends Observable{
         this.posicao = posicao;
     }
     
-    protected int codigo;
+    protected int codigo = 0;
     protected QuartoEstado quartoEstado;
     protected int numero;
     protected String vista;
@@ -118,6 +119,36 @@ public abstract class Quarto extends Observable{
     
     public static Quarto obterQuarto(int codigo) throws SQLException, ClassNotFoundException{
         return QuartoDao.obterQuarto(codigo);
+    }
+    
+    public void saveQuarto(HttpServletRequest request) throws SQLException, ClassNotFoundException{
+        
+        setParameter(request);
+        QuartoDao.getInstance().save(this);
+                
+    }
+    
+    public void updateQuarto(HttpServletRequest request) throws SQLException, ClassNotFoundException{
+        
+        setParameter(request);
+        QuartoDao.getInstance().update(this);
+        
+    }
+    
+    public void setParameter(HttpServletRequest request){
+        
+        if(Integer.parseInt(request.getParameter("textCodigo")) != 0){
+            this.codigo = Integer.parseInt(                request.getParameter("textCodigo"));
+        }
+            this.numero = Integer.parseInt(                request.getParameter("textNumero"));
+            this.vista =                                   request.getParameter("textVista");
+            this.quartoEstado = QuartoEstadoFactory.create(request.getParameter("textEstado"));
+    }
+    
+    public static void dropQuarto(Integer codigo) throws SQLException, ClassNotFoundException{
+        
+        QuartoDao.getInstance().drop(codigo);
+        
     }
     
     public void registerObserver(Observer observer){

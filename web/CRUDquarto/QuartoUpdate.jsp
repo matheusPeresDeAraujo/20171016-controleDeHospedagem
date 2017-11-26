@@ -55,10 +55,10 @@
                                         <div class="form-group">
                                             <th><span>Estado </span></th>
                                             <select name="textEstado" class="form-control">
-                                                <option name="textEstado" value="disponivel" <c:if test="${quarto.estado.equals('disponivel')}"> selected</c:if>>Disponivel</option>
-                                                <option name="textEstado" value="ocupado" <c:if test="${quarto.estado.equals('ocupado')}"> selected</c:if>>Ocupado</option>
-                                                <!--<option name="textEstado" value="reservado" <c:if test="${quarto.estado.equals('reservado')}"> selected</c:if>>Reservado</option>-->
-                                                <option name="textEstado" value="manutencao" <c:if test="${quarto.estado.equals('manutencao')}"> selected</c:if>>Manutencao</option>
+                                                <option name="textEstado" value="Disponivel" <c:if test="${quarto.quartoEstado.equals('Disponivel')}"> selected</c:if>>Disponivel</option>
+                                                <option name="textEstado" value="Ocupado" <c:if test="${quarto.quartoEstado.equals('Ocupado')}"> selected</c:if>>Ocupado</option>
+                                                <!--<option name="textEstado" value="reservado" <c:if test="${quarto.quartoEstado.equals('reservado')}"> selected</c:if>>Reservado</option>-->
+                                                <option name="textEstado" value="Manutencao" <c:if test="${quarto.quartoEstado.equals('Manutencao')}"> selected</c:if>>Manutencao</option>
                                             </select>
                                         </div>
                                         <div class="table-responsive">

@@ -46,10 +46,10 @@
                                         </div>
                                         <div class="form-group">
                                             <select name="textEstado" class="form-control">
-                                                <option name="textEstado" value="disponivel">Disponivel</option>
-                                                <option name="textEstado" value="ocupado">Ocupado</option>
+                                                <option name="textEstado" value="Disponivel">Disponivel</option>
+                                                <option name="textEstado" value="Ocupado">Ocupado</option>
                                                 <!--<option name="textEstado" value="reservado">Reservado</option>-->
-                                                <option name="textEstado" value="manutencao">Manutencao</option>
+                                                <option name="textEstado" value="Manutencao">Manutencao</option>
                                             </select>
                                         </div>
                                         <input class="btn btn-lg btn-success btn-block" type="submit" value="Gravar">
