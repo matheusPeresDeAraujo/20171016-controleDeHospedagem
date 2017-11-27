@@ -48,11 +48,7 @@ public class DisponivelQuartoAction implements Action{
                     request.getRequestDispatcher("/painel.jsp");
             view.forward(request, response);
             
-        } catch (SQLException ex) {
-            Logger.getLogger(DisponivelQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DisponivelQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ServletException ex) {
+        } catch (SQLException | ClassNotFoundException | ServletException ex) {
             Logger.getLogger(DisponivelQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

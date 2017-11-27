@@ -24,7 +24,7 @@ public class PainelAction implements Action{
             
             String todosQuartosOcupados = "true";
             for(Quarto quarto : Quarto.obterQuartos()){
-                if(quarto.getQuartoEstado().equals("disponivel")){
+                if(quarto.getQuartoEstado().equals("Disponivel")){
                     todosQuartosOcupados = "false";
                 }
             }

@@ -19,24 +19,21 @@ public class PrepararCheckInQuartoAction implements Action{
             
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int codigo = Integer.parseInt(request.getParameter("codigo"));
-        Quarto quarto = null;
-        List<Cliente> clientes;
-        clientes = new ArrayList<>();
+        
         try {
-            quarto = Quarto.obterQuarto(codigo);
             
+            Quarto quarto = Quarto.obterQuarto(Integer.parseInt(request.getParameter("codigo")));
             String resposta = quarto.ocupado();
+            
             if(resposta.equals("Alteração recusada")){
-                HttpSession session = request.getSession(true);
-                List<Quarto> quartos = (List<Quarto>) session.getAttribute("quartos");
-                session.setAttribute("quartos", quartos);
+                
                 request.setAttribute("resposta", resposta);
-                RequestDispatcher view = request.getRequestDispatcher("/painel.jsp");
-                view.forward(request, response);
+                PainelAction painel = new PainelAction();
+                painel.execute(request, response);
+                
             }else{
            
-                clientes = Cliente.obterClientes();
+                List<Cliente> clientes = Cliente.obterClientes();
                 request.setAttribute("quarto", quarto);
                 request.setAttribute("clientes", clientes);
 
@@ -44,11 +41,7 @@ public class PrepararCheckInQuartoAction implements Action{
                 view.forward(request, response);
                 
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(PrepararCheckInQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(PrepararCheckInQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ServletException ex) {
+        } catch (SQLException | ClassNotFoundException | ServletException ex) {
             Logger.getLogger(PrepararCheckInQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

@@ -19,7 +19,7 @@ import persistence.AlugaDao;
 import persistence.ClienteDao;
 import persistence.QuartoDao;
 
-public class DesocuparQuartoAction implements Action{
+public class CheckOutQuartoAction implements Action{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         
@@ -80,11 +80,11 @@ public class DesocuparQuartoAction implements Action{
             view.forward(request, response);
             
         } catch (SQLException ex) {
-            Logger.getLogger(DesocuparQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CheckOutQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DesocuparQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CheckOutQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ServletException ex) {
-            Logger.getLogger(DesocuparQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CheckOutQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

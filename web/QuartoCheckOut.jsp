@@ -29,7 +29,7 @@
                                 <h3 class="panel-title">Check Out Quarto</h3>
                             </div>
                             <div class="panel-body">
-                                <form accept-charset="UTF-8" role="form" action="FrontController?action=DesocuparQuarto" method="post">
+                                <form accept-charset="UTF-8" role="form" action="FrontController?action=CheckOutQuarto" method="post">
                                     <fieldset>
                                         <div class="form-group">
                                             <th><span>Codigo </span></th>
@@ -54,7 +54,7 @@
                                         <div class="form-group">
                                             <th><span>Estado </span></th>
                                             <input name="textEstado" type="text" value="reservado" hidden/>
-                                            <input class="form-control" placeholder="Estado" name="textEstado" type="text" value="disponivel" readonly="readonly"/>
+                                            <input class="form-control" placeholder="Estado" name="textEstado" type="text" value="Disponivel" readonly="readonly"/>
                                         </div>
                                         <div class="form-group">
                                             <th><span>Cliente </span></th>

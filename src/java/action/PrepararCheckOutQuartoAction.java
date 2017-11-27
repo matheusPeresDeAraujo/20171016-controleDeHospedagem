@@ -3,7 +3,6 @@ package action;
 import controller.Action;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,33 +18,28 @@ import persistence.AlugaDao;
 public class PrepararCheckOutQuartoAction implements Action{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int codigo = Integer.parseInt(request.getParameter("codigo"));
-        Quarto quarto = null;
-        Cliente cliente;
+       
         try {
-            quarto = Quarto.obterQuarto(codigo);
             
+            Quarto quarto = Quarto.obterQuarto(Integer.parseInt(request.getParameter("codigo")));
             String resposta = quarto.disponivel();
+            
             if(resposta.equals("Alteração recusada")){ 
-                HttpSession session = request.getSession(true);
-                List<Quarto> quartos = (List<Quarto>) session.getAttribute("quartos");
-                session.setAttribute("quartos", quartos);
+                
                 request.setAttribute("resposta", resposta);
-                RequestDispatcher view = request.getRequestDispatcher("/painel.jsp");
-                view.forward(request, response);
+                PainelAction painel = new PainelAction();
+                painel.execute(request, response);
+                
             }else{
-                cliente = Cliente.obterCliente(AlugaDao.getInstance().cliente(codigo));
+                
+                Cliente cliente = Cliente.obterCliente(AlugaDao.getInstance().cliente(Integer.parseInt(request.getParameter("codigo"))));
                 request.setAttribute("quarto", quarto);
                 request.setAttribute("cliente", cliente);
                 RequestDispatcher view = request.getRequestDispatcher("/QuartoCheckOut.jsp");
                 view.forward(request, response);
             }
             
-        } catch (SQLException ex) {
-            Logger.getLogger(PrepararCheckOutQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(PrepararCheckOutQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ServletException ex) {
+        } catch (SQLException | ClassNotFoundException | ServletException ex) {
             Logger.getLogger(PrepararCheckOutQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

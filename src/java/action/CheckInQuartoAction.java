@@ -18,7 +18,7 @@ import model.QuartoEstadoFactory;
 import persistence.AlugaDao;
 import persistence.QuartoDao;
 
-public class OcuparQuartoAction implements Action{
+public class CheckInQuartoAction implements Action{
     
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -71,11 +71,11 @@ public class OcuparQuartoAction implements Action{
             view.forward(request, response);
             
         } catch (SQLException ex) {
-            Logger.getLogger(OcuparQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CheckInQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(OcuparQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CheckInQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ServletException ex) {
-            Logger.getLogger(OcuparQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CheckInQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
