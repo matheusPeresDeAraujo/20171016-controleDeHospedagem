@@ -74,17 +74,12 @@ public class CheckOutQuartoAction implements Action{
                     ClienteDao.getInstance().obterCliente(interessados.get(i)).getNome() + "<br> O quarto " + quarto.getNumero() + " esta disponivel. <br>";
             }
             request.setAttribute("resp", resp);
-            request.setAttribute("todosOcupados", cont);
-            RequestDispatcher view = 
-                    request.getRequestDispatcher("/painel.jsp");
-            view.forward(request, response);
             
-        } catch (SQLException ex) {
-            Logger.getLogger(CheckOutQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CheckOutQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ServletException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(CheckOutQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        PainelAction painel = new PainelAction();
+        painel.execute(request, response);
     }
 }

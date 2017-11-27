@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -58,24 +56,10 @@ public class CheckInQuartoAction implements Action{
             }
             session.setAttribute("quartos", quartos);
             
-            String cont = "true";
-            for(Quarto qp : quartos){
-                    if(qp.getQuartoEstado().equals("disponivel")){
-                    cont = "false";
-                }
-            }
             
-            request.setAttribute("todosOcupados", cont);
-            RequestDispatcher view = 
-                    request.getRequestDispatcher("/painel.jsp");
-            view.forward(request, response);
             
-        } catch (SQLException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(CheckInQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CheckInQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ServletException ex) {
-            Logger.getLogger(CheckInQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
 }

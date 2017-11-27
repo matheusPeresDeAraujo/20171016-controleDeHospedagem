@@ -56,10 +56,29 @@ public class AlugaDao {
     }
     
     
+    public void drop(int codigo) throws SQLException, ClassNotFoundException{
+        
+        Connection conn = null;
+        Statement st = null;
+        
+        try{
+            conn = DatabaseLocator.getInstance().getConnection();
+            st = conn.createStatement();
+            st.executeQuery("delete from CLIENTE_ALUGA_QUARTO where cod_quarto = " + codigo);
+            
+        }catch(SQLException e){
+            throw e;
+        }finally{
+            closeResources(conn, st);
+        }
+    }
+    
+    
+    
     public static void closeResources (Connection conn, Statement st) throws SQLException{
         try{
             if(st!=null) st.close();
-            if(conn!=null) st.close();
+            if(conn!=null) conn.close();
         }catch(SQLException e){
             throw e;
         }
