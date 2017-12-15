@@ -133,21 +133,21 @@ public class SalaDao {
     
     
     private static void parseAtributos(PreparedStatement stmt, Sala sala) throws SQLException{
-            stmt.setInt     (1, sala.getNumero()         );
-            stmt.setDouble  (2, sala.getPreco()          );
-            stmt.setString  (3, sala.getNome()           );
+            stmt.setInt(1, sala.getNumero());
+            stmt.setDouble(2, sala.getPreco());
+            stmt.setString(3, sala.getNome());
         if(sala.getCodigo() != 0){
-            stmt.setInt     (4, sala.getCodigo()         );
+            stmt.setInt(4, sala.getCodigo());
         }
             stmt.execute();
     }
     
     
     private static Sala instanciaSala(ResultSet rs) throws SQLException{
-        Sala sala = SalaFactory.create      (rs.getString("nome"    ));
-        sala.setCodigo  (Integer.parseInt   (rs.getString("codigo"  )));
-        sala.setNumero  (Integer.parseInt   (rs.getString("numero"  )));
-        sala.setPreco   (Double.parseDouble (rs.getString("preco"   )));
+        Sala sala = SalaFactory.create(rs.getString("nome"));
+        sala.setCodigo(Integer.parseInt(rs.getString("codigo")));
+        sala.setNumero(Integer.parseInt(rs.getString("numero")));
+        sala.setPreco(Double.parseDouble(rs.getString("preco")));
         
         return sala;
     }

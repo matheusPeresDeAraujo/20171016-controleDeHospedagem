@@ -178,19 +178,19 @@ public class QuartoDao {
     }
     
     private static void parseAtributos(PreparedStatement stmt, Quarto quarto) throws SQLException{
-            stmt.setInt     (1, quarto.getNumero()       );
-            stmt.setString  (2, quarto.getTipo()         );
-            stmt.setDouble  (3, quarto.getPreco()        );
-            stmt.setDouble  (4, quarto.getTamanho()      );
-            stmt.setString  (5, quarto.getVista()        );
-            stmt.setInt     (6, quarto.getCama()         );
-            stmt.setInt     (7, quarto.getBanheiro()     );
-            stmt.setBoolean (8, quarto.getFrigobar()     );
-            stmt.setBoolean (9, quarto.getTv()           );
-            stmt.setBoolean (10, quarto.getComputador()  );
-            stmt.setString  (11, quarto.getQuartoEstado());
+            stmt.setInt(1, quarto.getNumero());
+            stmt.setString(2, quarto.getTipo());
+            stmt.setDouble(3, quarto.getPreco());
+            stmt.setDouble(4, quarto.getTamanho());
+            stmt.setString(5, quarto.getVista());
+            stmt.setInt(6, quarto.getCama());
+            stmt.setInt(7, quarto.getBanheiro());
+            stmt.setBoolean(8, quarto.getFrigobar());
+            stmt.setBoolean(9, quarto.getTv());
+            stmt.setBoolean(10, quarto.getComputador());
+            stmt.setString(11, quarto.getQuartoEstado());
         if(quarto.getCodigo() != 0){    
-            stmt.setInt     (12, quarto.getCodigo()      );
+            stmt.setInt(12, quarto.getCodigo());
         }
             stmt.execute();
     }

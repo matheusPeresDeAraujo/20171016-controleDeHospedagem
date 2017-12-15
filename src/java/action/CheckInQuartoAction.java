@@ -31,7 +31,7 @@ public class CheckInQuartoAction implements Action{
             
             //Defino o quarto antes da mudança em memento
             HttpSession session = request.getSession(true);
-            List<Quarto> quartos = (List<Quarto>) session.getAttribute("quartos");
+            List<Quarto> quartos = (List<Quarto>) session.getAttribute("session");
             for(Quarto q : quartos){
                 if(q.getCodigo() == codQuarto){
                     
@@ -54,12 +54,16 @@ public class CheckInQuartoAction implements Action{
                     break;
                 }
             }
-            session.setAttribute("quartos", quartos);
+            session.setAttribute("session", quartos);
             
             
             
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(CheckInQuartoAction.class.getName()).log(Level.SEVERE, null, ex);
         } 
+        
+        PainelAction painel = new PainelAction();
+        painel.execute(request, response);
+            
     }
 }

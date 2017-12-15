@@ -132,14 +132,14 @@ public class ClienteDao {
     
     
     private static void parseAtributos(PreparedStatement stmt, Cliente cliente) throws SQLException{
-            stmt.setString  (1, cliente.getNome()           );
-            stmt.setInt     (2, cliente.getIdade()          );
-            stmt.setString  (3, cliente.getIdentificacao()  );
-            stmt.setString  (4, cliente.getTelefone()       );
-            stmt.setString  (5, cliente.getCelular()        );
-            stmt.setString  (6, cliente.getEmail()          );
+            stmt.setString(1, cliente.getNome());
+            stmt.setInt(2, cliente.getIdade());
+            stmt.setString(3, cliente.getIdentificacao());
+            stmt.setString(4, cliente.getTelefone());
+            stmt.setString(5, cliente.getCelular());
+            stmt.setString(6, cliente.getEmail());
         if(cliente.getCodigo() != 0){
-            stmt.setInt     (7, cliente.getCodigo()         );
+            stmt.setInt(7, cliente.getCodigo());
         }
             stmt.execute();
     }
@@ -148,13 +148,13 @@ public class ClienteDao {
     private static Cliente instanciaCliente(ResultSet rs) throws SQLException{
         
         Cliente cliente = new Cliente();
-        cliente.setCodigo       (Integer.parseInt(  rs.getString("CODIGO"       )));
-        cliente.setNome         (                   rs.getString("NOME"         ));
-        cliente.setIdade        (Integer.parseInt(  rs.getString("IDADE"        )));
-        cliente.setIdentificacao(                   rs.getString("IDENTIFICACAO"));
-        cliente.setTelefone     (                   rs.getString("TELEFONE"     ));
-        cliente.setCelular      (                   rs.getString("CELULAR"      ));
-        cliente.setEmail        (                   rs.getString("EMAIL"        ));
+        cliente.setCodigo(Integer.parseInt(rs.getString("CODIGO")));
+        cliente.setNome(rs.getString("NOME"));
+        cliente.setIdade(Integer.parseInt(rs.getString("IDADE")));
+        cliente.setIdentificacao(rs.getString("IDENTIFICACAO"));
+        cliente.setTelefone(rs.getString("TELEFONE"));
+        cliente.setCelular(rs.getString("CELULAR"));
+        cliente.setEmail(rs.getString("EMAIL"));
         
         return cliente;
     }
